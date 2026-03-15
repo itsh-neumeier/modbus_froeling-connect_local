@@ -1,6 +1,6 @@
 # Froeling Connect local
 
-Home Assistant custom integration for **local** Fr\u00f6ling controller access via **Modbus TCP**.
+Home Assistant custom integration for **local** Froeling controller access via **Modbus TCP**.
 
 This project is designed for Home Assistant `2026.3+`, HACS installation, and long-term maintainability.
 
@@ -52,6 +52,8 @@ This project is designed for Home Assistant `2026.3+`, HACS installation, and lo
    - DHW available
    - buffer tank available
    - DHW heat pump available
+   - buffer volume in liters
+   - boiler nominal power in kW (for runtime estimation)
    - device profile
    - polling interval
    - timeout
@@ -72,6 +74,19 @@ The integration creates a parent gateway device and child devices (`via_device`)
 - buffer tank
 - optional DHW heat pump
 
+### Buffer Runtime Estimation
+
+If a buffer tank is enabled, the integration exposes an estimated runtime sensor:
+
+- `sensor.buffer_estimated_time_to_full`
+
+The estimate uses:
+
+- configured `buffer_liters`
+- configured `boiler_power_kw`
+- current `buffer_charge_percent`
+- fixed assumption of `40 K` usable temperature spread
+
 ## Entity Mapping
 
 ### Common status and telemetry sensors
@@ -80,18 +95,18 @@ The integration creates a parent gateway device and child devices (`via_device`)
 |---|---:|---|---|
 | `system_state` | 34001 | enum sensor | friendly text states |
 | `boiler_state` | 34002 | enum sensor | friendly text states |
-| `outside_temperature` | 31001 | sensor | \u00b0C |
-| `boiler_temperature` | 30001 | sensor | \u00b0C |
-| `flue_gas_temperature` | 30002 | sensor | \u00b0C |
+| `outside_temperature` | 31001 | sensor | °C |
+| `boiler_temperature` | 30001 | sensor | °C |
+| `flue_gas_temperature` | 30002 | sensor | °C |
 | `oxygen_residual` | 30004 | sensor | % |
 | `boiler_pump_speed` | 30068 | sensor | % |
-| `hk1_flow_temperature_actual` | 31031 | sensor | \u00b0C |
-| `hk1_flow_temperature_target` | 31032 | sensor | \u00b0C |
-| `hk2_flow_temperature_actual` | 31061 | sensor | \u00b0C |
-| `hk2_flow_temperature_target` | 31062 | sensor | \u00b0C |
-| `buffer_top_temperature` | 32001 | sensor | \u00b0C |
-| `buffer_middle_temperature` | 32002 | sensor | \u00b0C |
-| `buffer_bottom_temperature` | 32003 | sensor | \u00b0C |
+| `hk1_flow_temperature_actual` | 31031 | sensor | °C |
+| `hk1_flow_temperature_target` | 31032 | sensor | °C |
+| `hk2_flow_temperature_actual` | 31061 | sensor | °C |
+| `hk2_flow_temperature_target` | 31062 | sensor | °C |
+| `buffer_top_temperature` | 32001 | sensor | °C |
+| `buffer_middle_temperature` | 32002 | sensor | °C |
+| `buffer_bottom_temperature` | 32003 | sensor | °C |
 | `buffer_charge_percent` | 32007 | sensor | % |
 | `pellet_level_percent` | 30022 | sensor | % |
 | `daily_energy_kwh` | 30085 | sensor | kWh |

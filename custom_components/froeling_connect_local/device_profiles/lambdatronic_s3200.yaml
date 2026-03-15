@@ -1,32 +1,35 @@
 id: lambdatronic_s3200
 name: Lambdatronic S3200 (Modbus TCP)
 description: Generic profile for Froeling Lambdatronic S3200 controllers over Modbus TCP.
-manufacturer: Froeling
+manufacturer: Fröling GmbH
 model: Lambdatronic S3200
 devices:
   gateway:
-    name: Controller
+    name: SP Dual
     model: Lambdatronic S3200
-  boiler:
-    name: Boiler
-    model: Heating circuit
+  kessel:
+    name: Kessel
+    model: Boiler
+  boiler_01:
+    name: Boiler 01
+    model: Domestic Hot Water
   buffer_1:
-    name: Buffer Tank 1
+    name: Puffer 01
     model: Buffer
   heating_circuit_1:
-    name: Heating Circuit 1
+    name: Heizkreis 01
     model: Heating Circuit
   heating_circuit_2:
-    name: Heating Circuit 2
+    name: Heizkreis 02
     model: Heating Circuit
   pellet_unit:
-    name: Pellet Unit
+    name: Pellet Einheit
     model: Pellet System
   auger:
-    name: Feed System
+    name: Austragung
     model: Pellet Auger
   dhw_heat_pump:
-    name: DHW Heat Pump
+    name: BWP
     model: Domestic Hot Water Heat Pump
 entities:
   - key: system_state
@@ -41,7 +44,7 @@ entities:
       "2": automatic
       "3": logwood_mode
       "4": cleaning
-      "5": off
+      "5": "off"
       "6": extra_heat
       "7": chimney_sweep
       "8": cleaning
@@ -51,7 +54,7 @@ entities:
     register: 34002
     register_type: input
     value_type: enum
-    device_key: boiler
+    device_key: kessel
     options:
       "0": fault
       "1": boiler_off
@@ -100,7 +103,7 @@ entities:
     unit: C
     device_class: temperature
     state_class: measurement
-    device_key: boiler
+    device_key: kessel
 
   - key: flue_gas_temperature
     platform: sensor
@@ -112,7 +115,7 @@ entities:
     unit: C
     device_class: temperature
     state_class: measurement
-    device_key: boiler
+    device_key: kessel
 
   - key: oxygen_residual
     platform: sensor
@@ -123,7 +126,7 @@ entities:
     precision: 1
     unit: "%"
     state_class: measurement
-    device_key: boiler
+    device_key: kessel
 
   - key: boiler_pump_speed
     platform: sensor
@@ -134,7 +137,7 @@ entities:
     precision: 0
     unit: "%"
     state_class: measurement
-    device_key: boiler
+    device_key: kessel
 
   - key: hk1_flow_temperature_actual
     platform: sensor
@@ -297,7 +300,7 @@ entities:
     register: 30057
     register_type: input
     value_type: bool
-    device_key: boiler
+    device_key: kessel
 
   - key: buffer_heat_recovery_active
     platform: binary_sensor
@@ -312,7 +315,7 @@ entities:
     register: 41637
     register_type: holding
     value_type: bool
-    device_key: boiler
+    device_key: boiler_01
 
   - key: automatic_ignition
     platform: switch
@@ -320,7 +323,7 @@ entities:
     register_type: holding
     value_type: bool
     writeable: true
-    device_key: boiler
+    device_key: kessel
     entity_category: config
     enabled_by_default: false
 
@@ -357,7 +360,7 @@ entities:
     min_value: 70
     max_value: 90
     step: 0.5
-    device_key: boiler
+    device_key: kessel
     entity_category: config
     enabled_by_default: false
 
@@ -408,7 +411,7 @@ entities:
     min_value: 0
     max_value: 75
     step: 0.5
-    device_key: boiler
+    device_key: boiler_01
     entity_category: config
     enabled_by_default: false
 
@@ -438,7 +441,7 @@ entities:
     entity_category: config
     enabled_by_default: false
     options:
-      "0": off
+      "0": "off"
       "1": automatic
       "2": extra_heat
       "3": setback
@@ -455,7 +458,7 @@ entities:
     entity_category: config
     enabled_by_default: false
     options:
-      "0": off
+      "0": "off"
       "1": automatic
       "2": extra_heat
       "3": setback
@@ -468,10 +471,754 @@ entities:
     register_type: holding
     value_type: enum
     writeable: true
-    device_key: boiler
+    device_key: kessel
     entity_category: config
     enabled_by_default: false
     options:
       "0": logwood
       "1": pellets
       "2": automatic
+
+  - key: board_temperature
+    platform: sensor
+    register: 30003
+    register_type: input
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    device_key: gateway
+
+  - key: auger_current
+    platform: sensor
+    register: 30020
+    register_type: input
+    value_type: float
+    scale: 1000
+    precision: 2
+    unit: A
+    state_class: measurement
+    device_key: auger
+
+  - key: pellet_consumption_reset_kg
+    platform: sensor
+    register: 30082
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: kg
+    state_class: total
+    signed: false
+    device_key: pellet_unit
+
+  - key: pellet_consumption_reset_t
+    platform: sensor
+    register: 30083
+    register_type: input
+    value_type: float
+    scale: 10
+    precision: 1
+    unit: t
+    state_class: total
+    signed: false
+    device_key: pellet_unit
+
+  - key: pellet_consumption_total_t
+    platform: sensor
+    register: 30084
+    register_type: input
+    value_type: float
+    scale: 10
+    precision: 1
+    unit: t
+    state_class: total_increasing
+    signed: false
+    device_key: pellet_unit
+
+  - key: dhw_temperature_top
+    platform: sensor
+    register: 31631
+    register_type: input
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    device_key: boiler_01
+
+  - key: dhw_pump_speed
+    platform: sensor
+    register: 31633
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: "%"
+    state_class: measurement
+    device_key: boiler_01
+
+  - key: buffer_pump_speed
+    platform: sensor
+    register: 32004
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: "%"
+    state_class: measurement
+    device_key: buffer_1
+
+  - key: dhw_heat_pump_return_temperature
+    platform: sensor
+    register: 30712
+    register_type: input
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    device_key: dhw_heat_pump
+
+  - key: dhw_heat_pump_pump_speed
+    platform: sensor
+    register: 30711
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: "%"
+    state_class: measurement
+    device_key: dhw_heat_pump
+
+  - key: dhw_heat_pump_flow_switch
+    platform: binary_sensor
+    register: 30601
+    register_type: input
+    value_type: bool
+    device_key: dhw_heat_pump
+
+  - key: hk1_curve_temp_plus10
+    platform: number
+    register: 41032
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: 10
+    max_value: 110
+    step: 0.5
+    device_key: heating_circuit_1
+    entity_category: config
+    enabled_by_default: false
+
+  - key: hk1_curve_temp_minus10
+    platform: number
+    register: 41033
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: 10
+    max_value: 110
+    step: 0.5
+    device_key: heating_circuit_1
+    entity_category: config
+    enabled_by_default: false
+
+  - key: hk1_setback_delta
+    platform: number
+    register: 41034
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: 0
+    max_value: 70
+    step: 0.5
+    device_key: heating_circuit_1
+    entity_category: config
+    enabled_by_default: false
+
+  - key: hk1_max_flow_temperature
+    platform: sensor
+    register: 41035
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    entity_category: config
+    enabled_by_default: false
+    device_key: heating_circuit_1
+
+  - key: hk1_pump_on_temp_heating
+    platform: number
+    register: 41037
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: -20
+    max_value: 50
+    step: 0.5
+    device_key: heating_circuit_1
+    entity_category: config
+    enabled_by_default: false
+
+  - key: hk1_pump_on_temp_setback
+    platform: number
+    register: 41038
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: -20
+    max_value: 50
+    step: 0.5
+    device_key: heating_circuit_1
+    entity_category: config
+    enabled_by_default: false
+
+  - key: hk1_frost_protection_temperature
+    platform: number
+    register: 41039
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: -10
+    max_value: 20
+    step: 0.5
+    device_key: heating_circuit_1
+    entity_category: config
+    enabled_by_default: false
+
+  - key: hk1_pump_off_target_temp
+    platform: number
+    register: 41040
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: 10
+    max_value: 30
+    step: 0.5
+    device_key: heating_circuit_1
+    entity_category: config
+    enabled_by_default: false
+
+  - key: hk1_mixer_runtime_s
+    platform: sensor
+    register: 41043
+    register_type: holding
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: s
+    entity_category: config
+    enabled_by_default: false
+    device_key: heating_circuit_1
+
+  - key: hk1_boiler_priority_allowed
+    platform: binary_sensor
+    register: 41044
+    register_type: holding
+    value_type: bool
+    entity_category: config
+    enabled_by_default: false
+    device_key: heating_circuit_1
+
+  - key: hk1_buffer_source
+    platform: select
+    register: 41045
+    register_type: holding
+    value_type: enum
+    writeable: true
+    entity_category: config
+    enabled_by_default: false
+    device_key: heating_circuit_1
+    options:
+      "0": kessel
+      "1": puffer_01
+      "2": puffer_02
+      "3": puffer_03
+      "4": puffer_04
+
+  - key: hk1_high_temp_demand_for_boiler
+    platform: binary_sensor
+    register: 41046
+    register_type: holding
+    value_type: bool
+    entity_category: config
+    enabled_by_default: false
+    device_key: heating_circuit_1
+
+  - key: hk1_max_boiler_flow_temperature
+    platform: sensor
+    register: 41047
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    entity_category: config
+    enabled_by_default: false
+    device_key: heating_circuit_1
+
+  - key: hk1_overheat_protection_temp
+    platform: number
+    register: 41048
+    register_type: holding
+    value_type: float
+    scale: 1
+    precision: 0
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: 60
+    max_value: 120
+    step: 1
+    entity_category: config
+    enabled_by_default: false
+    device_key: heating_circuit_1
+
+  - key: dhw_target_temperature
+    platform: number
+    register: 41632
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: 10
+    max_value: 90
+    step: 0.5
+    entity_category: config
+    enabled_by_default: false
+    device_key: boiler_01
+
+  - key: dhw_reheat_below
+    platform: number
+    register: 41633
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: 1
+    max_value: 90
+    step: 0.5
+    entity_category: config
+    enabled_by_default: false
+    device_key: boiler_01
+
+  - key: dhw_diff_load_from_buffer
+    platform: sensor
+    register: 41634
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    entity_category: config
+    enabled_by_default: false
+    device_key: boiler_01
+
+  - key: dhw_use_residual_heat
+    platform: binary_sensor
+    register: 41635
+    register_type: holding
+    value_type: bool
+    entity_category: config
+    enabled_by_default: false
+    device_key: boiler_01
+
+  - key: dhw_once_per_day
+    platform: binary_sensor
+    register: 41636
+    register_type: holding
+    value_type: bool
+    entity_category: config
+    enabled_by_default: false
+    device_key: boiler_01
+
+  - key: legionella_weekday
+    platform: select
+    register: 41638
+    register_type: holding
+    value_type: enum
+    writeable: true
+    entity_category: config
+    enabled_by_default: false
+    device_key: boiler_01
+    options:
+      "1": monday
+      "2": tuesday
+      "3": wednesday
+      "4": thursday
+      "5": friday
+      "6": saturday
+      "7": sunday
+
+  - key: dhw_diff_load_from_boiler
+    platform: sensor
+    register: 41639
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    entity_category: config
+    enabled_by_default: false
+    device_key: boiler_01
+
+  - key: dhw_boiler_diff_target
+    platform: sensor
+    register: 41640
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    entity_category: config
+    enabled_by_default: false
+    device_key: boiler_01
+
+  - key: dhw_pump_min_speed
+    platform: sensor
+    register: 41641
+    register_type: holding
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: "%"
+    entity_category: config
+    enabled_by_default: false
+    device_key: boiler_01
+
+  - key: dhw_pump_max_speed
+    platform: sensor
+    register: 41646
+    register_type: holding
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: "%"
+    entity_category: config
+    enabled_by_default: false
+    device_key: boiler_01
+
+  - key: buffer_release_temperature
+    platform: sensor
+    register: 42001
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_delta_kessel_to_layer
+    platform: number
+    register: 42003
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: 0
+    max_value: 120
+    step: 0.5
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_pump_min_speed
+    platform: sensor
+    register: 42004
+    register_type: holding
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: "%"
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_kesselstart_delta
+    platform: sensor
+    register: 42005
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_full_delta
+    platform: sensor
+    register: 42006
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_pump_max_speed
+    platform: sensor
+    register: 42012
+    register_type: holding
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: "%"
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_middle_control_active
+    platform: binary_sensor
+    register: 42014
+    register_type: holding
+    value_type: bool
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_end_charge_at_middle
+    platform: binary_sensor
+    register: 42015
+    register_type: holding
+    value_type: bool
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_delta_between_tanks
+    platform: sensor
+    register: 42018
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_100_percent_at_delta
+    platform: sensor
+    register: 42020
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_0_percent_at_temp
+    platform: sensor
+    register: 42021
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_start_charge_percent
+    platform: number
+    register: 42022
+    register_type: holding
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: "%"
+    writeable: true
+    min_value: 0
+    max_value: 100
+    step: 1
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_system_environment_control
+    platform: binary_sensor
+    register: 42025
+    register_type: holding
+    value_type: bool
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_switch_off_delay_s
+    platform: sensor
+    register: 42026
+    register_type: holding
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: s
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_full_power_below_percent
+    platform: number
+    register: 42027
+    register_type: holding
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: "%"
+    writeable: true
+    min_value: 0
+    max_value: 100
+    step: 1
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_zero_power_above_percent
+    platform: number
+    register: 42028
+    register_type: holding
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: "%"
+    writeable: true
+    min_value: 0
+    max_value: 100
+    step: 1
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_volume_liters_register
+    platform: sensor
+    register: 42029
+    register_type: holding
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: L
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_hygienic_storage_used
+    platform: binary_sensor
+    register: 42030
+    register_type: holding
+    value_type: bool
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: buffer_refill_calculation_active
+    platform: binary_sensor
+    register: 42031
+    register_type: holding
+    value_type: bool
+    entity_category: config
+    enabled_by_default: false
+    device_key: buffer_1
+
+  - key: pellet_feed_100_percent_g
+    platform: number
+    register: 40319
+    register_type: holding
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: g
+    writeable: true
+    min_value: 0
+    max_value: 10000
+    step: 1
+    entity_category: config
+    enabled_by_default: false
+    device_key: auger
+
+  - key: pellet_stock_minimum_t
+    platform: number
+    register: 40336
+    register_type: holding
+    value_type: float
+    scale: 10
+    precision: 1
+    unit: t
+    writeable: true
+    min_value: 0
+    max_value: 100
+    step: 0.1
+    entity_category: config
+    enabled_by_default: false
+    device_key: pellet_unit
+
+  - key: dhw_heat_pump_off_return_temperature
+    platform: number
+    register: 40601
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: 20
+    max_value: 120
+    step: 0.5
+    entity_category: config
+    enabled_by_default: false
+    device_key: dhw_heat_pump

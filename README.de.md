@@ -1,25 +1,25 @@
-# Froeling Connect local
+# Fröling Connect local
 
-Home-Assistant-Custom-Integration fuer **lokalen** Zugriff auf Fr\u00f6ling-Regler per **Modbus TCP**.
+Home-Assistant-Custom-Integration für **lokalen** Zugriff auf Fröling-Regler über **Modbus TCP**.
 
-Dieses Projekt ist fuer Home Assistant `2026.3+`, HACS-Installation und langfristige Wartbarkeit ausgelegt.
+Dieses Projekt ist für Home Assistant `2026.3+`, HACS-Installation und langfristige Wartbarkeit ausgelegt.
 
 ## Funktionen
 
 - Native Home-Assistant-Integration (`config_flow`, `options_flow`)
-- Lokales Modbus-TCP-Polling (keine Cloud-Abhaengigkeit)
-- Geraeteprofil-Auswahl per Dropdown bei der Einrichtung
+- Lokales Modbus-TCP-Polling (keine Cloud-Abhängigkeit)
+- Geräteprofil-Auswahl per Dropdown bei der Einrichtung
 - Profildefinitionen in YAML (`device_profiles/*.yaml`)
-- Modellabhaengige Vererbung mit Overrides und Excludes
+- Modellabhängige Vererbung mit Overrides und Excludes
 - Geblockte Register-Reads via `DataUpdateCoordinator`
 - Wiederverwendete TCP-Verbindung mit Timeout/Fehlerbehandlung
 - Sichere Defaults:
   - nutzerrelevante Sensoren aktiv
-  - Schreib-/Service-Entitaeten standardmaessig deaktiviert
-- EN/DE Uebersetzungen inkl. States/Options
+  - Schreib-/Service-Entitäten standardmäßig deaktiviert
+- EN/DE Übersetzungen inkl. States/Options
 - HACS-Metadaten, Branding, CI, Security-Policy, Changelog
 
-## Unterstuetzte Profile
+## Unterstützte Profile
 
 - `lambdatronic_s3200` - Generisches Lambdatronic-S3200-Profil
 - `sp_dual` - SP-Dual-Profil
@@ -29,10 +29,10 @@ Dieses Projekt ist fuer Home Assistant `2026.3+`, HACS-Installation und langfris
 
 ### HACS (empfohlen)
 
-1. HACS in Home Assistant oeffnen.
-2. Custom Repository hinzufuegen: `https://github.com/itsh-neumeier/modbus_froeling-connect_local`
+1. HACS in Home Assistant öffnen.
+2. Custom Repository hinzufügen: `https://github.com/itsh-neumeier/modbus_froeling-connect_local`
 3. Kategorie: `Integration`
-4. **Froeling Connect local** installieren.
+4. **Fröling Connect local** installieren.
 5. Home Assistant neu starten.
 
 ### Manuell
@@ -42,8 +42,8 @@ Dieses Projekt ist fuer Home Assistant `2026.3+`, HACS-Installation und langfris
 
 ## Konfiguration
 
-1. `Einstellungen -> Geraete & Dienste -> Integration hinzufuegen`
-2. `Froeling Connect local` suchen
+1. `Einstellungen -> Geräte & Dienste -> Integration hinzufügen`
+2. Nach `Fröling Connect local` suchen
 3. Eingaben:
    - Host
    - Port (Standard `502`)
@@ -51,28 +51,43 @@ Dieses Projekt ist fuer Home Assistant `2026.3+`, HACS-Installation und langfris
    - Anzahl Heizkreise (1-2)
    - Brauchwasser vorhanden
    - Pufferspeicher vorhanden
-   - Brauchwasser-Waermepumpe vorhanden
-   - Geraeteprofil
+   - Brauchwasser-Wärmepumpe vorhanden
+   - Puffervolumen in Litern
+   - Kessel-Nennleistung in kW (für Laufzeitschätzung)
+   - Geräteprofil
    - Abfrageintervall
    - Timeout
-4. Bestaetigen. Vor dem Anlegen wird ein Verbindungs-Check ausgefuehrt.
+4. Bestätigen. Vor dem Anlegen wird ein Verbindungs-Check ausgeführt.
 
 ### Options Flow
 
-Ueber `Konfigurieren` an der Integrationskarte koennen Host/Port/Slave/Profil/Anlagen-Setup/Intervall/Timeout geaendert werden.
+Über `Konfigurieren` an der Integrationskarte können Host/Port/Slave/Profil/Anlagen-Setup/Intervall/Timeout später angepasst werden.
 
-### Geraete-Modell in Home Assistant
+### Gerätemodell in Home Assistant
 
-Die Integration legt ein Gateway als Parent-Device an und gruppiert darunter Child-Devices (`via_device`) fuer:
+Die Integration legt ein Gateway als Parent-Device an und gruppiert darunter Child-Devices (`via_device`) für:
 
 - Kessel
-- Austragung/Foerdereinheit
+- Austragung/Fördereinheit
 - Pellet-Einheit
 - Heizkreise
 - Pufferspeicher
-- optionale Brauchwasser-Waermepumpe
+- optionale Brauchwasser-Wärmepumpe
 
-## Entitaets-Mapping
+### Laufzeitschätzung Puffer
+
+Wenn ein Pufferspeicher aktiviert ist, stellt die Integration einen geschätzten Laufzeitsensor bereit:
+
+- `sensor.buffer_estimated_time_to_full`
+
+Die Schätzung nutzt:
+
+- konfiguriertes `buffer_liters`
+- konfiguriertes `boiler_power_kw`
+- aktuellen `buffer_charge_percent`
+- feste Annahme von `40 K` nutzbarer Temperaturspreizung
+
+## Entitäts-Mapping
 
 ### Gemeinsame Status- und Telemetrie-Sensoren
 
@@ -80,18 +95,18 @@ Die Integration legt ein Gateway als Parent-Device an und gruppiert darunter Chi
 |---|---:|---|---|
 | `system_state` | 34001 | Enum-Sensor | Klartext-Status |
 | `boiler_state` | 34002 | Enum-Sensor | Klartext-Status |
-| `outside_temperature` | 31001 | Sensor | \u00b0C |
-| `boiler_temperature` | 30001 | Sensor | \u00b0C |
-| `flue_gas_temperature` | 30002 | Sensor | \u00b0C |
+| `outside_temperature` | 31001 | Sensor | °C |
+| `boiler_temperature` | 30001 | Sensor | °C |
+| `flue_gas_temperature` | 30002 | Sensor | °C |
 | `oxygen_residual` | 30004 | Sensor | % |
 | `boiler_pump_speed` | 30068 | Sensor | % |
-| `hk1_flow_temperature_actual` | 31031 | Sensor | \u00b0C |
-| `hk1_flow_temperature_target` | 31032 | Sensor | \u00b0C |
-| `hk2_flow_temperature_actual` | 31061 | Sensor | \u00b0C |
-| `hk2_flow_temperature_target` | 31062 | Sensor | \u00b0C |
-| `buffer_top_temperature` | 32001 | Sensor | \u00b0C |
-| `buffer_middle_temperature` | 32002 | Sensor | \u00b0C |
-| `buffer_bottom_temperature` | 32003 | Sensor | \u00b0C |
+| `hk1_flow_temperature_actual` | 31031 | Sensor | °C |
+| `hk1_flow_temperature_target` | 31032 | Sensor | °C |
+| `hk2_flow_temperature_actual` | 31061 | Sensor | °C |
+| `hk2_flow_temperature_target` | 31062 | Sensor | °C |
+| `buffer_top_temperature` | 32001 | Sensor | °C |
+| `buffer_middle_temperature` | 32002 | Sensor | °C |
+| `buffer_bottom_temperature` | 32003 | Sensor | °C |
 | `buffer_charge_percent` | 32007 | Sensor | % |
 | `pellet_level_percent` | 30022 | Sensor | % |
 | `daily_energy_kwh` | 30085 | Sensor | kWh |
@@ -106,7 +121,7 @@ Die Integration legt ein Gateway als Parent-Device an und gruppiert darunter Chi
 | `legionella_cycle_active` | 41637 | binary_sensor |
 | `gateway_connected` | Diagnose-binary_sensor |
 
-### Schreib-/Config-Entitaeten (standardmaessig deaktiviert)
+### Schreib-/Config-Entitäten (standardmäßig deaktiviert)
 
 | Entity key | Register | Plattform |
 |---|---:|---|
@@ -122,7 +137,7 @@ Die Integration legt ein Gateway als Parent-Device an und gruppiert darunter Chi
 | `hk2_operating_mode` | 48048 | select |
 | `fuel_selection` | 40441 | select |
 
-### SP Dual Compact zusaetzliche Entitaeten
+### SP Dual Compact zusätzliche Entitäten
 
 | Entity key | Register | Typ |
 |---|---:|---|
@@ -135,7 +150,7 @@ Die Integration legt ein Gateway als Parent-Device an und gruppiert darunter Chi
 
 ```yaml
 automation:
-  - alias: Froeling Kessel Fehler Alarm
+  - alias: Fröling Kessel Fehler Alarm
     trigger:
       - platform: state
         entity_id: sensor.froeling_boiler_state
@@ -143,14 +158,14 @@ automation:
     action:
       - service: notify.mobile_app_phone
         data:
-          message: "Froeling meldet einen Kessel-Fehlerzustand."
+          message: "Fröling meldet einen Kessel-Fehlerzustand."
 ```
 
-### Betriebsart tagsueber auf Automatik setzen
+### Betriebsart tagsüber auf Automatik setzen
 
 ```yaml
 automation:
-  - alias: Froeling HK1 Tagesmodus
+  - alias: Fröling HK1 Tagesmodus
     trigger:
       - platform: time
         at: "06:00:00"
@@ -164,13 +179,13 @@ automation:
 
 ## Diagnostik und Robustheit
 
-- Geblockte Register-Reads pro Registertyp fuer weniger Netzwerk-Overhead
+- Geblockte Register-Reads pro Registertyp für weniger Netzwerk-Overhead
 - Gemeinsamer Coordinator-Lock gegen parallele Modbus-Zugriffe
 - Connection-Reuse mit Reconnect-Fallback
-- Diagnose-Entitaeten:
+- Diagnose-Entitäten:
   - Gateway-Verbindung
   - Roundtrip-Latenz
-  - Lese-Fehlerzaehler
+  - Lese-Fehlerzähler
   - letzter Fehlertext
   - Zeitstempel letzter erfolgreicher Aktualisierung
 
@@ -193,12 +208,12 @@ pip-audit -r requirements.txt
 ## Release-Prozess
 
 1. Code und Tests aktualisieren
-2. Checks ausfuehren
-3. Version in `manifest.json` erhoehen
+2. Checks ausführen
+3. Version in `manifest.json` erhöhen
 4. `CHANGELOG.md` aktualisieren
 5. Commit + Push
 6. Tag `vX.Y.Z` erstellen und pushen
-7. GitHub Release veroeffentlichen
+7. GitHub Release veröffentlichen
 
 ## Lizenz
 

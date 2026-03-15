@@ -2,15 +2,25 @@ id: sp_dual_compact
 base_profile: sp_dual
 name: SP Dual Compact (Modbus TCP)
 description: Profile tuned for SP Dual Compact systems with pellet and logwood operation.
-manufacturer: Froeling
+manufacturer: Fröling GmbH
 model: SP Dual Compact
 devices:
   gateway:
-    name: SP Dual Compact Controller
+    name: SP Dual Compact
+  kessel:
+    name: Kessel
+  boiler_01:
+    name: Boiler 01
+  heating_circuit_1:
+    name: Heizkreis 01
+  buffer_1:
+    name: Puffer 01
   pellet_unit:
-    name: Pellet Module
+    name: Pellet Einheit
   auger:
-    name: Compact Feed and Extraction Unit
+    name: Austragung
+  dhw_heat_pump:
+    name: BWP
 exclude_entities:
   - hk2_flow_temperature_actual
   - hk2_flow_temperature_target

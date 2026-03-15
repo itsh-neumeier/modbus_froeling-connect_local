@@ -25,7 +25,7 @@ class DeviceDefinition:
     key: str
     name: str
     model: str
-    manufacturer: str = "Froeling"
+    manufacturer: str = "Fröling GmbH"
 
 
 @dataclass(frozen=True, slots=True)
@@ -170,7 +170,11 @@ def load_profile(profile_id: str) -> DeviceProfile:
             key=device_key,
             name=str(device["name"]),
             model=str(device.get("model") or raw.get("model") or raw.get("name") or profile_id),
-            manufacturer=str(device.get("manufacturer") or raw.get("manufacturer") or "Froeling"),
+            manufacturer=str(
+                device.get("manufacturer")
+                or raw.get("manufacturer")
+                or "Fröling GmbH"
+            ),
         )
 
     entities: dict[str, EntityProfile] = {}
@@ -227,7 +231,7 @@ def load_profile(profile_id: str) -> DeviceProfile:
         profile_id=profile_id,
         name=str(raw.get("name") or profile_id),
         description=str(raw.get("description") or ""),
-        manufacturer=str(raw.get("manufacturer") or "Froeling"),
+        manufacturer=str(raw.get("manufacturer") or "Fröling GmbH"),
         model=str(raw.get("model") or raw.get("name") or profile_id),
         devices=devices,
         entities=entities,

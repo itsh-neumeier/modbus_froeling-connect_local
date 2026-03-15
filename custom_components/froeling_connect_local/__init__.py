@@ -11,6 +11,8 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 
 from .const import (
+    CONF_BOILER_POWER_KW,
+    CONF_BUFFER_LITERS,
     CONF_HAS_BUFFER,
     CONF_HAS_DHW,
     CONF_HAS_DHW_HEAT_PUMP,
@@ -22,6 +24,8 @@ from .const import (
     CONF_SLAVE,
     CONF_TIMEOUT,
     CONFIG_SCHEMA_VERSION,
+    DEFAULT_BOILER_POWER_KW,
+    DEFAULT_BUFFER_LITERS,
     DEFAULT_HAS_BUFFER,
     DEFAULT_HAS_DHW,
     DEFAULT_HAS_DHW_HEAT_PUMP,
@@ -131,6 +135,14 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         CONF_HAS_DHW_HEAT_PUMP: entry.data.get(
             CONF_HAS_DHW_HEAT_PUMP,
             DEFAULT_HAS_DHW_HEAT_PUMP,
+        ),
+        CONF_BUFFER_LITERS: entry.data.get(
+            CONF_BUFFER_LITERS,
+            DEFAULT_BUFFER_LITERS,
+        ),
+        CONF_BOILER_POWER_KW: entry.data.get(
+            CONF_BOILER_POWER_KW,
+            DEFAULT_BOILER_POWER_KW,
         ),
         CONF_SCHEMA_VERSION: CONFIG_SCHEMA_VERSION,
     }

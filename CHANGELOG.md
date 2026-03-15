@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-03-15
+
+### Added
+- Live-validated SP Dual register expansion (based on Modbus reads from device):
+  - Kessel-/Austragungs-/Pellet-/Boiler-01-/BWP-/Puffer-Datenpunkte
+  - additional config/setpoint entities for HK1, DHW, buffer, pellet feed
+- New config/options parameters for runtime estimation:
+  - `buffer_liters`
+  - `boiler_power_kw`
+- New diagnostic sensor `buffer_estimated_time_to_full` (estimated runtime to 100% buffer level)
+
+### Changed
+- Device hierarchy aligned to multi-device layout (gateway + dedicated child devices for Kessel, Austragung, Pellet, Heizkreis, Boiler 01, Puffer 01, optional BWP)
+- Switched brand assets to official Froeling logos from froeling.com
+- Manufacturer metadata normalized to `Fröling GmbH`
+- EN/DE translation coverage extended for all added entities and options
+
 ## [0.2.0] - 2026-03-15
 
 ### Added
@@ -42,7 +59,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CI pipeline with hassfest, ruff, bandit, pip-audit, pytest
 - MIT license and security policy
 
-[Unreleased]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/releases/tag/v0.1.0

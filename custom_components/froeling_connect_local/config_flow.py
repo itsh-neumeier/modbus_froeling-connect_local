@@ -11,6 +11,8 @@ from homeassistant.core import callback
 from homeassistant.helpers import selector
 
 from .const import (
+    CONF_BOILER_POWER_KW,
+    CONF_BUFFER_LITERS,
     CONF_HAS_BUFFER,
     CONF_HAS_DHW,
     CONF_HAS_DHW_HEAT_PUMP,
@@ -22,6 +24,8 @@ from .const import (
     CONF_SLAVE,
     CONF_TIMEOUT,
     CONFIG_SCHEMA_VERSION,
+    DEFAULT_BOILER_POWER_KW,
+    DEFAULT_BUFFER_LITERS,
     DEFAULT_HAS_BUFFER,
     DEFAULT_HAS_DHW,
     DEFAULT_HAS_DHW_HEAT_PUMP,
@@ -209,6 +213,30 @@ def _build_schema(defaults: dict[str, Any] | None) -> vol.Schema:
                 CONF_HAS_DHW_HEAT_PUMP,
                 default=data.get(CONF_HAS_DHW_HEAT_PUMP, DEFAULT_HAS_DHW_HEAT_PUMP),
             ): bool,
+            vol.Required(
+                CONF_BUFFER_LITERS,
+                default=data.get(CONF_BUFFER_LITERS, DEFAULT_BUFFER_LITERS),
+            ): selector.NumberSelector(
+                selector.NumberSelectorConfig(
+                    min=100,
+                    max=10000,
+                    mode=selector.NumberSelectorMode.BOX,
+                    step=10,
+                    unit_of_measurement="L",
+                ),
+            ),
+            vol.Required(
+                CONF_BOILER_POWER_KW,
+                default=data.get(CONF_BOILER_POWER_KW, DEFAULT_BOILER_POWER_KW),
+            ): selector.NumberSelector(
+                selector.NumberSelectorConfig(
+                    min=1,
+                    max=100,
+                    mode=selector.NumberSelectorMode.BOX,
+                    step=0.5,
+                    unit_of_measurement="kW",
+                ),
+            ),
             vol.Required(
                 CONF_PROFILE,
                 default=data.get(CONF_PROFILE, DEFAULT_PROFILE),

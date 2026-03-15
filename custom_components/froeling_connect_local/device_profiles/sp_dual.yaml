@@ -2,17 +2,25 @@ id: sp_dual
 base_profile: lambdatronic_s3200
 name: SP Dual (Modbus TCP)
 description: Profile tuned for SP Dual systems with logwood and pellet operation.
-manufacturer: Froeling
+manufacturer: Fröling GmbH
 model: SP Dual
 devices:
   gateway:
-    name: SP Dual Controller
-  boiler:
-    name: SP Dual Boiler
+    name: SP Dual
+  kessel:
+    name: Kessel
+  boiler_01:
+    name: Boiler 01
   pellet_unit:
-    name: Pellet Unit
+    name: Pellet Einheit
   auger:
-    name: Feed and Extraction Unit
+    name: Austragung
+  heating_circuit_1:
+    name: Heizkreis 01
+  buffer_1:
+    name: Puffer 01
+  dhw_heat_pump:
+    name: BWP
 override_entities:
   - key: pellet_level_percent
     scale: 207

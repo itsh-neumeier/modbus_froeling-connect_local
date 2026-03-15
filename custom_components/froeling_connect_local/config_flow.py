@@ -11,6 +11,10 @@ from homeassistant.core import callback
 from homeassistant.helpers import selector
 
 from .const import (
+    CONF_HAS_BUFFER,
+    CONF_HAS_DHW,
+    CONF_HAS_DHW_HEAT_PUMP,
+    CONF_HEATING_CIRCUITS,
     CONF_NAME,
     CONF_PROFILE,
     CONF_SCAN_INTERVAL,
@@ -18,6 +22,10 @@ from .const import (
     CONF_SLAVE,
     CONF_TIMEOUT,
     CONFIG_SCHEMA_VERSION,
+    DEFAULT_HAS_BUFFER,
+    DEFAULT_HAS_DHW,
+    DEFAULT_HAS_DHW_HEAT_PUMP,
+    DEFAULT_HEATING_CIRCUITS,
     DEFAULT_NAME,
     DEFAULT_PORT,
     DEFAULT_PROFILE,
@@ -181,6 +189,26 @@ def _build_schema(defaults: dict[str, Any] | None) -> vol.Schema:
                 int,
                 vol.Range(min=1, max=247),
             ),
+            vol.Required(
+                CONF_HEATING_CIRCUITS,
+                default=data.get(CONF_HEATING_CIRCUITS, DEFAULT_HEATING_CIRCUITS),
+            ): selector.NumberSelector(
+                selector.NumberSelectorConfig(
+                    min=1,
+                    max=2,
+                    mode=selector.NumberSelectorMode.BOX,
+                    step=1,
+                ),
+            ),
+            vol.Required(CONF_HAS_DHW, default=data.get(CONF_HAS_DHW, DEFAULT_HAS_DHW)): bool,
+            vol.Required(
+                CONF_HAS_BUFFER,
+                default=data.get(CONF_HAS_BUFFER, DEFAULT_HAS_BUFFER),
+            ): bool,
+            vol.Required(
+                CONF_HAS_DHW_HEAT_PUMP,
+                default=data.get(CONF_HAS_DHW_HEAT_PUMP, DEFAULT_HAS_DHW_HEAT_PUMP),
+            ): bool,
             vol.Required(
                 CONF_PROFILE,
                 default=data.get(CONF_PROFILE, DEFAULT_PROFILE),

@@ -19,9 +19,15 @@ devices:
   heating_circuit_2:
     name: Heating Circuit 2
     model: Heating Circuit
-  pellet:
-    name: Pellet Feed
-    model: Pellet Feed
+  pellet_unit:
+    name: Pellet Unit
+    model: Pellet System
+  auger:
+    name: Feed System
+    model: Pellet Auger
+  dhw_heat_pump:
+    name: DHW Heat Pump
+    model: Domestic Hot Water Heat Pump
 entities:
   - key: system_state
     platform: sensor
@@ -234,7 +240,31 @@ entities:
     precision: 1
     unit: "%"
     state_class: measurement
-    device_key: pellet
+    device_key: pellet_unit
+
+  - key: stoker_runtime_hours
+    platform: sensor
+    register: 30040
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: h
+    state_class: total_increasing
+    signed: false
+    device_key: auger
+
+  - key: ignition_runtime_hours
+    platform: sensor
+    register: 30047
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: h
+    state_class: total_increasing
+    signed: false
+    device_key: pellet_unit
 
   - key: daily_energy_kwh
     platform: sensor
@@ -394,7 +424,7 @@ entities:
     min_value: 0
     max_value: 100
     step: 0.1
-    device_key: pellet
+    device_key: pellet_unit
     entity_category: config
     enabled_by_default: false
 

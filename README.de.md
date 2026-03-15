@@ -22,6 +22,7 @@ Dieses Projekt ist fuer Home Assistant `2026.3+`, HACS-Installation und langfris
 ## Unterstuetzte Profile
 
 - `lambdatronic_s3200` - Generisches Lambdatronic-S3200-Profil
+- `sp_dual` - SP-Dual-Profil
 - `sp_dual_compact` - Abgeleitetes Profil mit SP-Dual-Compact-Overrides
 
 ## Installation
@@ -29,7 +30,7 @@ Dieses Projekt ist fuer Home Assistant `2026.3+`, HACS-Installation und langfris
 ### HACS (empfohlen)
 
 1. HACS in Home Assistant oeffnen.
-2. Custom Repository hinzufuegen: `https://github.com/itsh-neumeier/froeling-connect_local`
+2. Custom Repository hinzufuegen: `https://github.com/itsh-neumeier/modbus_froeling-connect_local`
 3. Kategorie: `Integration`
 4. **Froeling Connect local** installieren.
 5. Home Assistant neu starten.
@@ -47,6 +48,10 @@ Dieses Projekt ist fuer Home Assistant `2026.3+`, HACS-Installation und langfris
    - Host
    - Port (Standard `502`)
    - Slave-ID (Standard `2`)
+   - Anzahl Heizkreise (1-2)
+   - Brauchwasser vorhanden
+   - Pufferspeicher vorhanden
+   - Brauchwasser-Waermepumpe vorhanden
    - Geraeteprofil
    - Abfrageintervall
    - Timeout
@@ -54,7 +59,18 @@ Dieses Projekt ist fuer Home Assistant `2026.3+`, HACS-Installation und langfris
 
 ### Options Flow
 
-Ueber `Konfigurieren` an der Integrationskarte koennen Host/Port/Slave/Profil/Intervall/Timeout geaendert werden.
+Ueber `Konfigurieren` an der Integrationskarte koennen Host/Port/Slave/Profil/Anlagen-Setup/Intervall/Timeout geaendert werden.
+
+### Geraete-Modell in Home Assistant
+
+Die Integration legt ein Gateway als Parent-Device an und gruppiert darunter Child-Devices (`via_device`) fuer:
+
+- Kessel
+- Austragung/Foerdereinheit
+- Pellet-Einheit
+- Heizkreise
+- Pufferspeicher
+- optionale Brauchwasser-Waermepumpe
 
 ## Entitaets-Mapping
 

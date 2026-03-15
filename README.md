@@ -22,6 +22,7 @@ This project is designed for Home Assistant `2026.3+`, HACS installation, and lo
 ## Supported Profiles
 
 - `lambdatronic_s3200` - Generic Lambdatronic S3200 profile
+- `sp_dual` - SP Dual profile
 - `sp_dual_compact` - Derived profile with SP Dual Compact overrides
 
 ## Installation
@@ -29,7 +30,7 @@ This project is designed for Home Assistant `2026.3+`, HACS installation, and lo
 ### HACS (recommended)
 
 1. Open HACS in Home Assistant.
-2. Add custom repository: `https://github.com/itsh-neumeier/froeling-connect_local`
+2. Add custom repository: `https://github.com/itsh-neumeier/modbus_froeling-connect_local`
 3. Category: `Integration`
 4. Install **Froeling Connect local**.
 5. Restart Home Assistant.
@@ -47,6 +48,10 @@ This project is designed for Home Assistant `2026.3+`, HACS installation, and lo
    - host
    - port (default `502`)
    - slave ID (default `2`)
+   - number of heating circuits (1-2)
+   - DHW available
+   - buffer tank available
+   - DHW heat pump available
    - device profile
    - polling interval
    - timeout
@@ -54,7 +59,18 @@ This project is designed for Home Assistant `2026.3+`, HACS installation, and lo
 
 ### Options flow
 
-Use `Configure` on the integration card to adjust host/port/slave/profile/interval/timeout later.
+Use `Configure` on the integration card to adjust host/port/slave/profile/heating setup/interval/timeout later.
+
+### Device Model In Home Assistant
+
+The integration creates a parent gateway device and child devices (`via_device`) for plant modules:
+
+- boiler
+- feed/extraction unit (Austragung)
+- pellet unit
+- heating circuits
+- buffer tank
+- optional DHW heat pump
 
 ## Entity Mapping
 

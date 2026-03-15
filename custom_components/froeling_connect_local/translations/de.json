@@ -10,6 +10,10 @@
           "host": "Host",
           "port": "Port",
           "slave": "Modbus-Slave-ID",
+          "heating_circuits": "Anzahl Heizkreise",
+          "has_dhw": "Brauchwasser vorhanden",
+          "has_buffer": "Pufferspeicher vorhanden",
+          "has_dhw_heat_pump": "Brauchwasser-Waermepumpe vorhanden",
           "profile": "Geräteprofil",
           "scan_interval": "Abfrageintervall (Sekunden)",
           "timeout": "Verbindungs-Timeout (Sekunden)"
@@ -34,6 +38,10 @@
           "host": "Host",
           "port": "Port",
           "slave": "Modbus-Slave-ID",
+          "heating_circuits": "Anzahl Heizkreise",
+          "has_dhw": "Brauchwasser vorhanden",
+          "has_buffer": "Pufferspeicher vorhanden",
+          "has_dhw_heat_pump": "Brauchwasser-Waermepumpe vorhanden",
           "profile": "Geräteprofil",
           "scan_interval": "Abfrageintervall (Sekunden)",
           "timeout": "Verbindungs-Timeout (Sekunden)"
@@ -115,7 +123,8 @@
       "heat_demand_active": { "name": "Waermeanforderung aktiv" },
       "buffer_heat_recovery_active": { "name": "Puffer Restwaermenutzung aktiv" },
       "legionella_cycle_active": { "name": "Legionellenzyklus aktiv" },
-      "gateway_connected": { "name": "Gateway verbunden" }
+      "gateway_connected": { "name": "Gateway verbunden" },
+      "dhw_heat_pump_installed": { "name": "Brauchwasser-Waermepumpe installiert" }
     },
     "number": {
       "boiler_target_temperature": { "name": "Kessel Solltemperatur" },

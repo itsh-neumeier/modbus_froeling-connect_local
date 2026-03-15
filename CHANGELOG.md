@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-03-15
+
+### Added
+- New `sp_dual` profile in addition to `sp_dual_compact`
+- Extended config/options flow fields for installation topology:
+  - number of heating circuits
+  - DHW availability
+  - buffer tank availability
+  - DHW heat pump availability
+- Runtime entity filtering based on installation options
+- Separate child devices (via gateway) for boiler, feed unit (Austragung), pellet unit, heating circuits, and optional DHW heat pump
+
+### Changed
+- Renamed GitHub repository to `modbus_froeling-connect_local`
+- Updated documentation and integration metadata links to the new repository URL
+
 ## [0.1.1] - 2026-03-15
 
 ### Fixed
@@ -26,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CI pipeline with hassfest, ruff, bandit, pip-audit, pytest
 - MIT license and security policy
 
-[Unreleased]: https://github.com/itsh-neumeier/froeling-connect_local/compare/v0.1.1...HEAD
-[0.1.1]: https://github.com/itsh-neumeier/froeling-connect_local/compare/v0.1.0...v0.1.1
-[0.1.0]: https://github.com/itsh-neumeier/froeling-connect_local/releases/tag/v0.1.0
+[Unreleased]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.1.1...v0.2.0
+[0.1.1]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/releases/tag/v0.1.0

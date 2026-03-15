@@ -7,8 +7,10 @@ from homeassistant.components.binary_sensor import (
     BinarySensorEntity,
 )
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
+from .const import CONF_HAS_DHW_HEAT_PUMP, DEFAULT_HAS_DHW_HEAT_PUMP
 from .coordinator import FroelingLocalDataUpdateCoordinator
 from .device_profile import EntityProfile
 from .entity import FroelingCoordinatorDiagnosticEntity, FroelingEntity
@@ -27,6 +29,10 @@ async def async_setup_entry(
         for profile in coordinator.profile.entities_for_platform("binary_sensor")
     ]
     entities.append(FroelingGatewayConnectedBinarySensor(coordinator))
+    if bool(
+        coordinator.entry.data.get(CONF_HAS_DHW_HEAT_PUMP, DEFAULT_HAS_DHW_HEAT_PUMP),
+    ):
+        entities.append(FroelingDhwHeatPumpInstalledBinarySensor(coordinator))
 
     async_add_entities(entities)
 
@@ -66,3 +72,30 @@ class FroelingGatewayConnectedBinarySensor(FroelingCoordinatorDiagnosticEntity, 
     @property
     def is_on(self) -> bool:
         return self.coordinator.connected
+
+
+class FroelingDhwHeatPumpInstalledBinarySensor(
+    FroelingCoordinatorDiagnosticEntity,
+    BinarySensorEntity,
+):
+    """Expose configured DHW heat pump presence and create dedicated BWP device."""
+
+    _attr_entity_category = EntityCategory.DIAGNOSTIC
+    _attr_device_class = BinarySensorDeviceClass.RUNNING
+
+    def __init__(self, coordinator: FroelingLocalDataUpdateCoordinator) -> None:
+        super().__init__(coordinator, "dhw_heat_pump_installed")
+        self._attr_device_info = coordinator.get_device_info("dhw_heat_pump")
+
+    @property
+    def available(self) -> bool:
+        return True
+
+    @property
+    def is_on(self) -> bool:
+        return bool(
+            self.coordinator.entry.data.get(
+                CONF_HAS_DHW_HEAT_PUMP,
+                DEFAULT_HAS_DHW_HEAT_PUMP,
+            ),
+        )

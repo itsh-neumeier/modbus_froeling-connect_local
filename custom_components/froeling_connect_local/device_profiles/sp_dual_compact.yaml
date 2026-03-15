@@ -1,5 +1,5 @@
 id: sp_dual_compact
-base_profile: lambdatronic_s3200
+base_profile: sp_dual
 name: SP Dual Compact (Modbus TCP)
 description: Profile tuned for SP Dual Compact systems with pellet and logwood operation.
 manufacturer: Froeling
@@ -7,8 +7,10 @@ model: SP Dual Compact
 devices:
   gateway:
     name: SP Dual Compact Controller
-  pellet:
+  pellet_unit:
     name: Pellet Module
+  auger:
+    name: Compact Feed and Extraction Unit
 exclude_entities:
   - hk2_flow_temperature_actual
   - hk2_flow_temperature_target
@@ -21,27 +23,3 @@ override_entities:
     precision: 1
   - key: fuel_selection
     enabled_by_default: true
-entities:
-  - key: ignition_runtime_hours
-    platform: sensor
-    register: 30047
-    register_type: input
-    value_type: int
-    scale: 1
-    precision: 0
-    unit: h
-    state_class: total_increasing
-    signed: false
-    device_key: pellet
-
-  - key: stoker_runtime_hours
-    platform: sensor
-    register: 30040
-    register_type: input
-    value_type: int
-    scale: 1
-    precision: 0
-    unit: h
-    state_class: total_increasing
-    signed: false
-    device_key: pellet

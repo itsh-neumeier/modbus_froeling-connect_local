@@ -11,6 +11,10 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 
 from .const import (
+    CONF_HAS_BUFFER,
+    CONF_HAS_DHW,
+    CONF_HAS_DHW_HEAT_PUMP,
+    CONF_HEATING_CIRCUITS,
     CONF_NAME,
     CONF_PROFILE,
     CONF_SCAN_INTERVAL,
@@ -18,6 +22,10 @@ from .const import (
     CONF_SLAVE,
     CONF_TIMEOUT,
     CONFIG_SCHEMA_VERSION,
+    DEFAULT_HAS_BUFFER,
+    DEFAULT_HAS_DHW,
+    DEFAULT_HAS_DHW_HEAT_PUMP,
+    DEFAULT_HEATING_CIRCUITS,
     DEFAULT_NAME,
     DEFAULT_PORT,
     DEFAULT_PROFILE,
@@ -28,7 +36,7 @@ from .const import (
     PLATFORMS,
 )
 from .coordinator import FroelingLocalDataUpdateCoordinator
-from .device_profile import ProfileError, load_profile
+from .device_profile import ProfileError, apply_installation_options, load_profile
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -47,7 +55,18 @@ async def async_setup_entry(hass: HomeAssistant, entry: FroelingConfigEntry) -> 
     hass.data.setdefault(DOMAIN, {})
 
     try:
-        profile = load_profile(str(entry.data[CONF_PROFILE]))
+        base_profile = load_profile(str(entry.data[CONF_PROFILE]))
+        profile = apply_installation_options(
+            base_profile,
+            heating_circuits=int(
+                entry.data.get(CONF_HEATING_CIRCUITS, DEFAULT_HEATING_CIRCUITS),
+            ),
+            has_dhw=bool(entry.data.get(CONF_HAS_DHW, DEFAULT_HAS_DHW)),
+            has_buffer=bool(entry.data.get(CONF_HAS_BUFFER, DEFAULT_HAS_BUFFER)),
+            has_dhw_heat_pump=bool(
+                entry.data.get(CONF_HAS_DHW_HEAT_PUMP, DEFAULT_HAS_DHW_HEAT_PUMP),
+            ),
+        )
     except ProfileError as err:
         raise ConfigEntryNotReady(f"Invalid profile '{entry.data.get(CONF_PROFILE)}': {err}") from err
 
@@ -103,6 +122,16 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         CONF_TIMEOUT: entry.data.get(CONF_TIMEOUT, DEFAULT_TIMEOUT),
         CONF_SCAN_INTERVAL: entry.data.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL),
         CONF_PROFILE: entry.data.get(CONF_PROFILE, DEFAULT_PROFILE),
+        CONF_HEATING_CIRCUITS: entry.data.get(
+            CONF_HEATING_CIRCUITS,
+            DEFAULT_HEATING_CIRCUITS,
+        ),
+        CONF_HAS_DHW: entry.data.get(CONF_HAS_DHW, DEFAULT_HAS_DHW),
+        CONF_HAS_BUFFER: entry.data.get(CONF_HAS_BUFFER, DEFAULT_HAS_BUFFER),
+        CONF_HAS_DHW_HEAT_PUMP: entry.data.get(
+            CONF_HAS_DHW_HEAT_PUMP,
+            DEFAULT_HAS_DHW_HEAT_PUMP,
+        ),
         CONF_SCHEMA_VERSION: CONFIG_SCHEMA_VERSION,
     }
 

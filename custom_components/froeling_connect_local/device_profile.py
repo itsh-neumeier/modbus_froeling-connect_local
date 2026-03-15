@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import copy
 from collections.abc import Iterable
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -232,6 +232,40 @@ def load_profile(profile_id: str) -> DeviceProfile:
         devices=devices,
         entities=entities,
     )
+
+
+def apply_installation_options(
+    profile: DeviceProfile,
+    *,
+    heating_circuits: int,
+    has_dhw: bool,
+    has_buffer: bool,
+    has_dhw_heat_pump: bool,
+) -> DeviceProfile:
+    """Return a profile filtered by installation-specific options."""
+    filtered_entities: dict[str, EntityProfile] = {}
+    for key, entity in profile.entities.items():
+        if heating_circuits < 2 and key.startswith("hk2_"):
+            continue
+        if not has_dhw and (key.startswith("dhw_") or key.startswith("legionella_")):
+            continue
+        if not has_buffer and key.startswith("buffer_"):
+            continue
+        if not has_dhw_heat_pump and key.startswith("dhw_heat_pump_"):
+            continue
+        filtered_entities[key] = entity
+
+    used_device_keys = {
+        "gateway",
+        *{entity.device_key for entity in filtered_entities.values()},
+    }
+    filtered_devices = {
+        key: value
+        for key, value in profile.devices.items()
+        if key in used_device_keys
+    }
+
+    return replace(profile, devices=filtered_devices, entities=filtered_entities)
 
 
 def register_to_address(register_type: str, register: int) -> int:

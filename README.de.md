@@ -29,7 +29,7 @@ Dieses Projekt ist fuer Home Assistant `2026.3+`, HACS-Installation und langfris
 ### HACS (empfohlen)
 
 1. HACS in Home Assistant oeffnen.
-2. Custom Repository hinzufuegen: `https://github.com/timo-neumeier/froeling-connect_local`
+2. Custom Repository hinzufuegen: `https://github.com/itsh-neumeier/froeling-connect_local`
 3. Kategorie: `Integration`
 4. **Froeling Connect local** installieren.
 5. Home Assistant neu starten.

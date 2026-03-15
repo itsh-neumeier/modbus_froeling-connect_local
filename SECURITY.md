@@ -8,7 +8,7 @@ Security fixes are applied to the latest released version.
 
 Please report vulnerabilities privately via GitHub Security Advisories:
 
-- Open: `https://github.com/timo-neumeier/froeling-connect_local/security/advisories/new`
+- Open: `https://github.com/itsh-neumeier/froeling-connect_local/security/advisories/new`
 
 If GitHub Advisories are unavailable, open a private channel with the maintainer and include:
 

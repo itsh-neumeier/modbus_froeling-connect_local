@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-03-15
+
+### Fixed
+- Hassfest compliance for `CONFIG_SCHEMA` declaration in `__init__.py`
+- Manifest key ordering and metadata (`integration_type`) for Home Assistant validation
+
 ## [0.1.0] - 2026-03-15
 
 ### Added
@@ -20,5 +26,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CI pipeline with hassfest, ruff, bandit, pip-audit, pytest
 - MIT license and security policy
 
-[Unreleased]: https://github.com/timo-neumeier/froeling-connect_local/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/timo-neumeier/froeling-connect_local/releases/tag/v0.1.0
+[Unreleased]: https://github.com/itsh-neumeier/froeling-connect_local/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/itsh-neumeier/froeling-connect_local/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/itsh-neumeier/froeling-connect_local/releases/tag/v0.1.0

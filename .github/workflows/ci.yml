@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - "codex/**"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  hassfest:
+    name: Hassfest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Hassfest
+        uses: home-assistant/actions/hassfest@master
+
+  lint_security:
+    name: Lint and Security
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Ruff
+        run: ruff check custom_components/froeling_connect_local tests
+
+      - name: Bandit
+        run: bandit -c pyproject.toml -r custom_components/froeling_connect_local
+
+      - name: Tests
+        run: pytest -q
+
+      - name: Pip audit
+        run: pip-audit -r requirements.txt

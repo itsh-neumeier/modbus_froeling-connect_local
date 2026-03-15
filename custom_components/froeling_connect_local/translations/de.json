@@ -1,0 +1,168 @@
+{
+  "title": "Froeling Connect local",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Froeling Modbus-Gateway hinzufügen",
+        "description": "Verbinde Home Assistant direkt mit deinem lokalen Froeling-Regler über Modbus TCP.",
+        "data": {
+          "name": "Name",
+          "host": "Host",
+          "port": "Port",
+          "slave": "Modbus-Slave-ID",
+          "profile": "Geräteprofil",
+          "scan_interval": "Abfrageintervall (Sekunden)",
+          "timeout": "Verbindungs-Timeout (Sekunden)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Verbindung zum Modbus-Endpunkt fehlgeschlagen",
+      "invalid_profile": "Ausgewähltes Geräteprofil ist ungültig"
+    },
+    "abort": {
+      "already_configured": "Dieser Modbus-Endpunkt ist bereits konfiguriert"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Froeling-Einstellungen bearbeiten",
+        "description": "Passe Verbindungsdaten, Profil oder Abfrageverhalten an.",
+        "data": {
+          "name": "Name",
+          "host": "Host",
+          "port": "Port",
+          "slave": "Modbus-Slave-ID",
+          "profile": "Geräteprofil",
+          "scan_interval": "Abfrageintervall (Sekunden)",
+          "timeout": "Verbindungs-Timeout (Sekunden)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Verbindung zum Modbus-Endpunkt fehlgeschlagen",
+      "invalid_profile": "Ausgewähltes Geräteprofil ist ungültig"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "system_state": {
+        "name": "Anlagenzustand",
+        "state": {
+          "continuous_load": "Dauerlast",
+          "domestic_hot_water": "Brauchwasser",
+          "automatic": "Automatik",
+          "logwood_mode": "Scheitholzbetrieb",
+          "cleaning": "Reinigung",
+          "off": "Aus",
+          "extra_heat": "Extraheizen",
+          "chimney_sweep": "Kaminkehrer"
+        }
+      },
+      "boiler_state": {
+        "name": "Kesselzustand",
+        "state": {
+          "fault": "Stoerung",
+          "boiler_off": "Kessel aus",
+          "ignition": "Anheizen",
+          "heating": "Heizen",
+          "ember_preservation": "Feuererhaltung",
+          "fire_out": "Feuer aus",
+          "door_open": "Tuer offen",
+          "preparation": "Vorbereitung",
+          "preheating": "Vorwaermen",
+          "igniting": "Zuenden",
+          "shutdown_wait": "Abstellen warten",
+          "shutdown_wait_1": "Abstellen warten 1",
+          "shutdown_feed_1": "Abstellen Einschub 1",
+          "shutdown_wait_2": "Abstellen warten 2",
+          "shutdown_feed_2": "Abstellen Einschub 2",
+          "wait_2h": "2h warten",
+          "suction_heating": "Saugen / Heizen",
+          "failed_ignition": "Fehlzuendung",
+          "ready": "Betriebsbereit",
+          "stopped": "Abgestellt",
+          "cleaning_possible": "Reinigen moeglich",
+          "heating_cleaning": "Heizen - Reinigen",
+          "sensor_check": "Sensorcheck"
+        }
+      },
+      "outside_temperature": { "name": "Aussentemperatur" },
+      "boiler_temperature": { "name": "Kesseltemperatur" },
+      "flue_gas_temperature": { "name": "Abgastemperatur" },
+      "oxygen_residual": { "name": "Restsauerstoff" },
+      "boiler_pump_speed": { "name": "Kesselpumpendrehzahl" },
+      "hk1_flow_temperature_actual": { "name": "HK1 Vorlauf Ist" },
+      "hk1_flow_temperature_target": { "name": "HK1 Vorlauf Soll" },
+      "hk2_flow_temperature_actual": { "name": "HK2 Vorlauf Ist" },
+      "hk2_flow_temperature_target": { "name": "HK2 Vorlauf Soll" },
+      "buffer_top_temperature": { "name": "Puffer Temperatur oben" },
+      "buffer_middle_temperature": { "name": "Puffer Temperatur mitte" },
+      "buffer_bottom_temperature": { "name": "Puffer Temperatur unten" },
+      "buffer_charge_percent": { "name": "Puffer Ladezustand" },
+      "pellet_level_percent": { "name": "Pelletfuellstand" },
+      "daily_energy_kwh": { "name": "Tagesertrag" },
+      "total_energy_kwh": { "name": "Gesamtertrag" },
+      "ignition_runtime_hours": { "name": "Laufzeit Zuendung" },
+      "stoker_runtime_hours": { "name": "Laufzeit Stokerschnecke" },
+      "roundtrip_ms": { "name": "Modbus Roundtrip" },
+      "read_error_count": { "name": "Lese-Fehlerzaehler" },
+      "last_error": { "name": "Letzter Modbus-Fehler" },
+      "last_success": { "name": "Letzte erfolgreiche Aktualisierung" }
+    },
+    "binary_sensor": {
+      "heat_demand_active": { "name": "Waermeanforderung aktiv" },
+      "buffer_heat_recovery_active": { "name": "Puffer Restwaermenutzung aktiv" },
+      "legionella_cycle_active": { "name": "Legionellenzyklus aktiv" },
+      "gateway_connected": { "name": "Gateway verbunden" }
+    },
+    "number": {
+      "boiler_target_temperature": { "name": "Kessel Solltemperatur" },
+      "hk1_modbus_target_temperature": { "name": "HK1 Modbus Solltemperatur" },
+      "hk2_modbus_target_temperature": { "name": "HK2 Modbus Solltemperatur" },
+      "dhw_modbus_target_temperature": { "name": "Brauchwasser Modbus Solltemperatur" },
+      "pellet_stock_remaining_t": { "name": "Pellet Restbestand" }
+    },
+    "switch": {
+      "automatic_ignition": { "name": "Automatische Zuendung" },
+      "hk1_enabled": { "name": "HK1 freigegeben" },
+      "hk2_enabled": { "name": "HK2 freigegeben" }
+    },
+    "select": {
+      "hk1_operating_mode": {
+        "name": "HK1 Betriebsart",
+        "state": {
+          "off": "Aus",
+          "automatic": "Automatik",
+          "extra_heat": "Extraheizen",
+          "setback": "Absenken",
+          "permanent_setback": "Dauerabsenken",
+          "party": "Partybetrieb"
+        }
+      },
+      "hk2_operating_mode": {
+        "name": "HK2 Betriebsart",
+        "state": {
+          "off": "Aus",
+          "automatic": "Automatik",
+          "extra_heat": "Extraheizen",
+          "setback": "Absenken",
+          "permanent_setback": "Dauerabsenken",
+          "party": "Partybetrieb"
+        }
+      },
+      "fuel_selection": {
+        "name": "Brennstoffauswahl",
+        "state": {
+          "logwood": "Scheitholz",
+          "pellets": "Pellets",
+          "automatic": "Automatik"
+        }
+      }
+    },
+    "button": {
+      "reconnect_gateway": { "name": "Gateway neu verbinden" }
+    }
+  }
+}

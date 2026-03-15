@@ -1,0 +1,447 @@
+id: lambdatronic_s3200
+name: Lambdatronic S3200 (Modbus TCP)
+description: Generic profile for Froeling Lambdatronic S3200 controllers over Modbus TCP.
+manufacturer: Froeling
+model: Lambdatronic S3200
+devices:
+  gateway:
+    name: Controller
+    model: Lambdatronic S3200
+  boiler:
+    name: Boiler
+    model: Heating circuit
+  buffer_1:
+    name: Buffer Tank 1
+    model: Buffer
+  heating_circuit_1:
+    name: Heating Circuit 1
+    model: Heating Circuit
+  heating_circuit_2:
+    name: Heating Circuit 2
+    model: Heating Circuit
+  pellet:
+    name: Pellet Feed
+    model: Pellet Feed
+entities:
+  - key: system_state
+    platform: sensor
+    register: 34001
+    register_type: input
+    value_type: enum
+    device_key: gateway
+    options:
+      "0": continuous_load
+      "1": domestic_hot_water
+      "2": automatic
+      "3": logwood_mode
+      "4": cleaning
+      "5": off
+      "6": extra_heat
+      "7": chimney_sweep
+      "8": cleaning
+
+  - key: boiler_state
+    platform: sensor
+    register: 34002
+    register_type: input
+    value_type: enum
+    device_key: boiler
+    options:
+      "0": fault
+      "1": boiler_off
+      "2": ignition
+      "3": heating
+      "4": ember_preservation
+      "5": fire_out
+      "6": door_open
+      "7": preparation
+      "8": preheating
+      "9": igniting
+      "10": shutdown_wait
+      "11": shutdown_wait_1
+      "12": shutdown_feed_1
+      "13": shutdown_wait_2
+      "14": shutdown_feed_2
+      "15": cleaning
+      "16": wait_2h
+      "17": suction_heating
+      "18": failed_ignition
+      "19": ready
+      "33": stopped
+      "69": cleaning_possible
+      "70": heating_cleaning
+      "82": sensor_check
+
+  - key: outside_temperature
+    platform: sensor
+    register: 31001
+    register_type: input
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    device_key: gateway
+
+  - key: boiler_temperature
+    platform: sensor
+    register: 30001
+    register_type: input
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    device_key: boiler
+
+  - key: flue_gas_temperature
+    platform: sensor
+    register: 30002
+    register_type: input
+    value_type: float
+    scale: 1
+    precision: 0
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    device_key: boiler
+
+  - key: oxygen_residual
+    platform: sensor
+    register: 30004
+    register_type: input
+    value_type: float
+    scale: 10
+    precision: 1
+    unit: "%"
+    state_class: measurement
+    device_key: boiler
+
+  - key: boiler_pump_speed
+    platform: sensor
+    register: 30068
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: "%"
+    state_class: measurement
+    device_key: boiler
+
+  - key: hk1_flow_temperature_actual
+    platform: sensor
+    register: 31031
+    register_type: input
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    device_key: heating_circuit_1
+
+  - key: hk1_flow_temperature_target
+    platform: sensor
+    register: 31032
+    register_type: input
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    device_key: heating_circuit_1
+
+  - key: hk2_flow_temperature_actual
+    platform: sensor
+    register: 31061
+    register_type: input
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    device_key: heating_circuit_2
+
+  - key: hk2_flow_temperature_target
+    platform: sensor
+    register: 31062
+    register_type: input
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    device_key: heating_circuit_2
+
+  - key: buffer_top_temperature
+    platform: sensor
+    register: 32001
+    register_type: input
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    device_key: buffer_1
+
+  - key: buffer_middle_temperature
+    platform: sensor
+    register: 32002
+    register_type: input
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    device_key: buffer_1
+
+  - key: buffer_bottom_temperature
+    platform: sensor
+    register: 32003
+    register_type: input
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    device_key: buffer_1
+
+  - key: buffer_charge_percent
+    platform: sensor
+    register: 32007
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: "%"
+    state_class: measurement
+    device_key: buffer_1
+
+  - key: pellet_level_percent
+    platform: sensor
+    register: 30022
+    register_type: input
+    value_type: float
+    scale: 10
+    precision: 1
+    unit: "%"
+    state_class: measurement
+    device_key: pellet
+
+  - key: daily_energy_kwh
+    platform: sensor
+    register: 30085
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: kWh
+    device_class: energy
+    state_class: total
+    signed: false
+    device_key: gateway
+
+  - key: total_energy_kwh
+    platform: sensor
+    register: 30086
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: kWh
+    device_class: energy
+    state_class: total_increasing
+    signed: false
+    device_key: gateway
+
+  - key: heat_demand_active
+    platform: binary_sensor
+    register: 30057
+    register_type: input
+    value_type: bool
+    device_key: boiler
+
+  - key: buffer_heat_recovery_active
+    platform: binary_sensor
+    register: 42002
+    register_type: holding
+    value_type: bool
+    device_key: buffer_1
+    entity_category: diagnostic
+
+  - key: legionella_cycle_active
+    platform: binary_sensor
+    register: 41637
+    register_type: holding
+    value_type: bool
+    device_key: boiler
+
+  - key: automatic_ignition
+    platform: switch
+    register: 40136
+    register_type: holding
+    value_type: bool
+    writeable: true
+    device_key: boiler
+    entity_category: config
+    enabled_by_default: false
+
+  - key: hk1_enabled
+    platform: switch
+    register: 48029
+    register_type: holding
+    value_type: bool
+    writeable: true
+    device_key: heating_circuit_1
+    entity_category: config
+    enabled_by_default: false
+
+  - key: hk2_enabled
+    platform: switch
+    register: 48030
+    register_type: holding
+    value_type: bool
+    writeable: true
+    device_key: heating_circuit_2
+    entity_category: config
+    enabled_by_default: false
+
+  - key: boiler_target_temperature
+    platform: number
+    register: 40001
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: 70
+    max_value: 90
+    step: 0.5
+    device_key: boiler
+    entity_category: config
+    enabled_by_default: false
+
+  - key: hk1_modbus_target_temperature
+    platform: number
+    register: 48001
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: 0
+    max_value: 75
+    step: 0.5
+    device_key: heating_circuit_1
+    entity_category: config
+    enabled_by_default: false
+
+  - key: hk2_modbus_target_temperature
+    platform: number
+    register: 48002
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: 0
+    max_value: 75
+    step: 0.5
+    device_key: heating_circuit_2
+    entity_category: config
+    enabled_by_default: false
+
+  - key: dhw_modbus_target_temperature
+    platform: number
+    register: 48019
+    register_type: holding
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    writeable: true
+    min_value: 0
+    max_value: 75
+    step: 0.5
+    device_key: boiler
+    entity_category: config
+    enabled_by_default: false
+
+  - key: pellet_stock_remaining_t
+    platform: number
+    register: 40320
+    register_type: holding
+    value_type: float
+    scale: 10
+    precision: 1
+    unit: t
+    writeable: true
+    min_value: 0
+    max_value: 100
+    step: 0.1
+    device_key: pellet
+    entity_category: config
+    enabled_by_default: false
+
+  - key: hk1_operating_mode
+    platform: select
+    register: 48047
+    register_type: holding
+    value_type: enum
+    writeable: true
+    device_key: heating_circuit_1
+    entity_category: config
+    enabled_by_default: false
+    options:
+      "0": off
+      "1": automatic
+      "2": extra_heat
+      "3": setback
+      "4": permanent_setback
+      "5": party
+
+  - key: hk2_operating_mode
+    platform: select
+    register: 48048
+    register_type: holding
+    value_type: enum
+    writeable: true
+    device_key: heating_circuit_2
+    entity_category: config
+    enabled_by_default: false
+    options:
+      "0": off
+      "1": automatic
+      "2": extra_heat
+      "3": setback
+      "4": permanent_setback
+      "5": party
+
+  - key: fuel_selection
+    platform: select
+    register: 40441
+    register_type: holding
+    value_type: enum
+    writeable: true
+    device_key: boiler
+    entity_category: config
+    enabled_by_default: false
+    options:
+      "0": logwood
+      "1": pellets
+      "2": automatic

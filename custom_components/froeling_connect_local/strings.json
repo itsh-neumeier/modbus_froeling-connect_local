@@ -1,0 +1,168 @@
+{
+  "title": "Froeling Connect local",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add Froeling Modbus gateway",
+        "description": "Connect Home Assistant directly to your local Froeling controller via Modbus TCP.",
+        "data": {
+          "name": "Name",
+          "host": "Host",
+          "port": "Port",
+          "slave": "Modbus slave ID",
+          "profile": "Device profile",
+          "scan_interval": "Polling interval (seconds)",
+          "timeout": "Connection timeout (seconds)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to the Modbus endpoint",
+      "invalid_profile": "Selected device profile is invalid"
+    },
+    "abort": {
+      "already_configured": "This Modbus endpoint is already configured"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Edit Froeling settings",
+        "description": "Adjust connection settings, profile or polling behavior.",
+        "data": {
+          "name": "Name",
+          "host": "Host",
+          "port": "Port",
+          "slave": "Modbus slave ID",
+          "profile": "Device profile",
+          "scan_interval": "Polling interval (seconds)",
+          "timeout": "Connection timeout (seconds)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to the Modbus endpoint",
+      "invalid_profile": "Selected device profile is invalid"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "system_state": {
+        "name": "System state",
+        "state": {
+          "continuous_load": "Continuous load",
+          "domestic_hot_water": "Domestic hot water",
+          "automatic": "Automatic",
+          "logwood_mode": "Logwood mode",
+          "cleaning": "Cleaning",
+          "off": "Off",
+          "extra_heat": "Extra heat",
+          "chimney_sweep": "Chimney sweep"
+        }
+      },
+      "boiler_state": {
+        "name": "Boiler state",
+        "state": {
+          "fault": "Fault",
+          "boiler_off": "Boiler off",
+          "ignition": "Ignition",
+          "heating": "Heating",
+          "ember_preservation": "Ember preservation",
+          "fire_out": "Fire out",
+          "door_open": "Door open",
+          "preparation": "Preparation",
+          "preheating": "Preheating",
+          "igniting": "Igniting",
+          "shutdown_wait": "Shutdown wait",
+          "shutdown_wait_1": "Shutdown wait 1",
+          "shutdown_feed_1": "Shutdown feed 1",
+          "shutdown_wait_2": "Shutdown wait 2",
+          "shutdown_feed_2": "Shutdown feed 2",
+          "wait_2h": "Wait 2 hours",
+          "suction_heating": "Suction heating",
+          "failed_ignition": "Failed ignition",
+          "ready": "Ready",
+          "stopped": "Stopped",
+          "cleaning_possible": "Cleaning possible",
+          "heating_cleaning": "Heating and cleaning",
+          "sensor_check": "Sensor check"
+        }
+      },
+      "outside_temperature": { "name": "Outside temperature" },
+      "boiler_temperature": { "name": "Boiler temperature" },
+      "flue_gas_temperature": { "name": "Flue gas temperature" },
+      "oxygen_residual": { "name": "Residual oxygen" },
+      "boiler_pump_speed": { "name": "Boiler pump speed" },
+      "hk1_flow_temperature_actual": { "name": "HK1 flow temperature actual" },
+      "hk1_flow_temperature_target": { "name": "HK1 flow temperature target" },
+      "hk2_flow_temperature_actual": { "name": "HK2 flow temperature actual" },
+      "hk2_flow_temperature_target": { "name": "HK2 flow temperature target" },
+      "buffer_top_temperature": { "name": "Buffer top temperature" },
+      "buffer_middle_temperature": { "name": "Buffer middle temperature" },
+      "buffer_bottom_temperature": { "name": "Buffer bottom temperature" },
+      "buffer_charge_percent": { "name": "Buffer charge" },
+      "pellet_level_percent": { "name": "Pellet level" },
+      "daily_energy_kwh": { "name": "Daily energy" },
+      "total_energy_kwh": { "name": "Total energy" },
+      "ignition_runtime_hours": { "name": "Ignition runtime" },
+      "stoker_runtime_hours": { "name": "Stoker runtime" },
+      "roundtrip_ms": { "name": "Modbus roundtrip" },
+      "read_error_count": { "name": "Read error count" },
+      "last_error": { "name": "Last Modbus error" },
+      "last_success": { "name": "Last successful update" }
+    },
+    "binary_sensor": {
+      "heat_demand_active": { "name": "Heat demand active" },
+      "buffer_heat_recovery_active": { "name": "Buffer heat recovery active" },
+      "legionella_cycle_active": { "name": "Legionella cycle active" },
+      "gateway_connected": { "name": "Gateway connected" }
+    },
+    "number": {
+      "boiler_target_temperature": { "name": "Boiler target temperature" },
+      "hk1_modbus_target_temperature": { "name": "HK1 Modbus target temperature" },
+      "hk2_modbus_target_temperature": { "name": "HK2 Modbus target temperature" },
+      "dhw_modbus_target_temperature": { "name": "DHW Modbus target temperature" },
+      "pellet_stock_remaining_t": { "name": "Pellet stock remaining" }
+    },
+    "switch": {
+      "automatic_ignition": { "name": "Automatic ignition" },
+      "hk1_enabled": { "name": "HK1 enabled" },
+      "hk2_enabled": { "name": "HK2 enabled" }
+    },
+    "select": {
+      "hk1_operating_mode": {
+        "name": "HK1 operating mode",
+        "state": {
+          "off": "Off",
+          "automatic": "Automatic",
+          "extra_heat": "Extra heat",
+          "setback": "Setback",
+          "permanent_setback": "Permanent setback",
+          "party": "Party"
+        }
+      },
+      "hk2_operating_mode": {
+        "name": "HK2 operating mode",
+        "state": {
+          "off": "Off",
+          "automatic": "Automatic",
+          "extra_heat": "Extra heat",
+          "setback": "Setback",
+          "permanent_setback": "Permanent setback",
+          "party": "Party"
+        }
+      },
+      "fuel_selection": {
+        "name": "Fuel selection",
+        "state": {
+          "logwood": "Logwood",
+          "pellets": "Pellets",
+          "automatic": "Automatic"
+        }
+      }
+    },
+    "button": {
+      "reconnect_gateway": { "name": "Reconnect gateway" }
+    }
+  }
+}

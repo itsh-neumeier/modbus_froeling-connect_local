@@ -1,0 +1,11 @@
+{
+  "name": "Froeling Connect local",
+  "render_readme": true,
+  "country": [
+    "DE",
+    "AT",
+    "CH"
+  ],
+  "homeassistant": "2026.3.0",
+  "content_in_root": false
+}

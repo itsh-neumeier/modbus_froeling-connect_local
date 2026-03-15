@@ -1,0 +1,23 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual envs
+.venv/
+venv/
+
+# Tool caches
+.pytest_cache/
+.ruff_cache/
+.bandit/
+.mypy_cache/
+
+# Reference repos used during local development
+_ref_*/
+technicaldatasheets/
+
+# OS
+.DS_Store
+Thumbs.db

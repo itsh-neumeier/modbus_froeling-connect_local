@@ -1,0 +1,15 @@
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+exclude = ["_ref_hass_froeling_connect", "_ref_ha_froeling_modbus", "technicaldatasheets"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "ASYNC", "C4", "T10"]
+ignore = ["E203", "E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["custom_components"]
+
+[tool.bandit]
+exclude_dirs = ["tests", "_ref_hass_froeling_connect", "_ref_ha_froeling_modbus"]
+skips = ["B101"]

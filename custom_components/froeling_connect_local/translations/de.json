@@ -98,7 +98,7 @@
           "cleaning_possible": "Reinigen möglich",
           "heating_cleaning": "Heizen - Reinigen",
           "sensor_check": "Sensorcheck",
-          "cleaning": "Cleaning"
+          "cleaning": "Reinigung"
         }
       },
       "outside_temperature": {
@@ -168,91 +168,91 @@
         "name": "Letzte erfolgreiche Aktualisierung"
       },
       "buffer_estimated_time_to_full": {
-        "name": "Geschätzte Zeit bis Puffer 100 %"
+        "name": "Geschätzte Zeit bis Puffer voll bei Betrieb"
       },
       "board_temperature": {
-        "name": "Board Temperature"
+        "name": "Platinen-Temperatur"
       },
       "auger_current": {
-        "name": "Auger Current"
+        "name": "Austragung Strom"
       },
       "pellet_consumption_reset_kg": {
-        "name": "Pellet Consumption Reset Kg"
+        "name": "Pelletverbrauch seit Reset (kg)"
       },
       "pellet_consumption_reset_t": {
-        "name": "Pellet Consumption Reset T"
+        "name": "Pelletverbrauch seit Reset (t)"
       },
       "pellet_consumption_total_t": {
-        "name": "Pellet Consumption Total T"
+        "name": "Pelletverbrauch gesamt (t)"
       },
       "dhw_temperature_top": {
-        "name": "Dhw Temperature Top"
+        "name": "Brauchwassertemperatur oben"
       },
       "dhw_pump_speed": {
-        "name": "Dhw Pump Speed"
+        "name": "Brauchwasserpumpendrehzahl"
       },
       "buffer_pump_speed": {
-        "name": "Buffer Pump Speed"
+        "name": "Pufferpumpendrehzahl"
       },
       "dhw_heat_pump_return_temperature": {
-        "name": "Dhw Heat Pump Return Temperature"
+        "name": "Brauchwasser-WP Rücklauftemperatur"
       },
       "dhw_heat_pump_pump_speed": {
-        "name": "Dhw Heat Pump Pump Speed"
+        "name": "Brauchwasser-WP Pumpendrehzahl"
       },
       "hk1_max_flow_temperature": {
-        "name": "Hk1 Max Flow Temperature"
+        "name": "HK1 Max. Vorlauftemperatur"
       },
       "hk1_mixer_runtime_s": {
-        "name": "Hk1 Mixer Runtime S"
+        "name": "HK1 Mischerlaufzeit (s)"
       },
       "hk1_max_boiler_flow_temperature": {
-        "name": "Hk1 Max Boiler Flow Temperature"
+        "name": "HK1 Max. Kessel-Vorlauftemperatur"
       },
       "dhw_diff_load_from_buffer": {
-        "name": "Dhw Diff Load From Buffer"
+        "name": "Brauchwasser Lade-Differenz vom Puffer"
       },
       "dhw_diff_load_from_boiler": {
-        "name": "Dhw Diff Load From Boiler"
+        "name": "Brauchwasser Lade-Differenz vom Kessel"
       },
       "dhw_boiler_diff_target": {
-        "name": "Dhw Boiler Diff Target"
+        "name": "Brauchwasser Kessel-Differenz Soll"
       },
       "dhw_pump_min_speed": {
-        "name": "Dhw Pump Min Speed"
+        "name": "Brauchwasserpumpe Mindestdrehzahl"
       },
       "dhw_pump_max_speed": {
-        "name": "Dhw Pump Max Speed"
+        "name": "Brauchwasserpumpe Maximaldrehzahl"
       },
       "buffer_release_temperature": {
-        "name": "Buffer Release Temperature"
+        "name": "Puffer Freigabetemperatur"
       },
       "buffer_pump_min_speed": {
-        "name": "Buffer Pump Min Speed"
+        "name": "Pufferpumpe Mindestdrehzahl"
       },
       "buffer_kesselstart_delta": {
-        "name": "Buffer Kesselstart Delta"
+        "name": "Puffer Kesselstart-Delta"
       },
       "buffer_full_delta": {
-        "name": "Buffer Full Delta"
+        "name": "Puffer Voll-Delta"
       },
       "buffer_pump_max_speed": {
-        "name": "Buffer Pump Max Speed"
+        "name": "Pufferpumpe Maximaldrehzahl"
       },
       "buffer_delta_between_tanks": {
-        "name": "Buffer Delta Between Tanks"
+        "name": "Puffer Delta zwischen Speichern"
       },
       "buffer_100_percent_at_delta": {
-        "name": "Buffer 100 Percent At Delta"
+        "name": "Puffer 100 Prozent bei Delta"
       },
       "buffer_0_percent_at_temp": {
-        "name": "Buffer 0 Percent At Temp"
+        "name": "Puffer 0 Prozent bei Temperatur"
       },
       "buffer_switch_off_delay_s": {
-        "name": "Buffer Switch Off Delay S"
+        "name": "Puffer Ausschaltverzögerung (s)"
       },
       "buffer_volume_liters_register": {
-        "name": "Buffer Volume Liters Register"
+        "name": "Puffervolumen Register (Liter)"
       }
     },
     "binary_sensor": {
@@ -269,37 +269,41 @@
         "name": "Gateway verbunden"
       },
       "dhw_heat_pump_installed": {
-        "name": "Brauchwasser-Wärmepumpe installiert"
+        "name": "Brauchwasser-Wärmepumpe vorhanden",
+        "state": {
+          "on": "Vorhanden",
+          "off": "Nicht vorhanden"
+        }
       },
       "dhw_heat_pump_flow_switch": {
-        "name": "Dhw Heat Pump Flow Switch"
+        "name": "Brauchwasser-WP Durchflussschalter"
       },
       "hk1_boiler_priority_allowed": {
-        "name": "Hk1 Boiler Priority Allowed"
+        "name": "HK1 Kesselpriorität erlaubt"
       },
       "hk1_high_temp_demand_for_boiler": {
-        "name": "Hk1 High Temp Demand For Boiler"
+        "name": "HK1 Hochtemperaturanforderung für Kessel"
       },
       "dhw_use_residual_heat": {
-        "name": "Dhw Use Residual Heat"
+        "name": "Brauchwasser Restwärme nutzen"
       },
       "dhw_once_per_day": {
-        "name": "Dhw Once Per Day"
+        "name": "Brauchwasser einmal pro Tag"
       },
       "buffer_middle_control_active": {
-        "name": "Buffer Middle Control Active"
+        "name": "Puffer-Mittenregelung aktiv"
       },
       "buffer_end_charge_at_middle": {
-        "name": "Buffer End Charge At Middle"
+        "name": "Puffer-Ladung bei Mitte beenden"
       },
       "buffer_system_environment_control": {
-        "name": "Buffer System Environment Control"
+        "name": "Puffer-Umgebungsregelung aktiv"
       },
       "buffer_hygienic_storage_used": {
-        "name": "Buffer Hygienic Storage Used"
+        "name": "Hygienespeicher genutzt"
       },
       "buffer_refill_calculation_active": {
-        "name": "Buffer Refill Calculation Active"
+        "name": "Puffer-Nachladeberechnung aktiv"
       }
     },
     "number": {
@@ -319,55 +323,55 @@
         "name": "Pellet Restbestand"
       },
       "hk1_curve_temp_plus10": {
-        "name": "Hk1 Curve Temp Plus10"
+        "name": "HK1 Heizkurve +10 °C"
       },
       "hk1_curve_temp_minus10": {
-        "name": "Hk1 Curve Temp Minus10"
+        "name": "HK1 Heizkurve -10 °C"
       },
       "hk1_setback_delta": {
-        "name": "Hk1 Setback Delta"
+        "name": "HK1 Absenk-Delta"
       },
       "hk1_pump_on_temp_heating": {
-        "name": "Hk1 Pump On Temp Heating"
+        "name": "HK1 Pumpe Ein bei Heizbetrieb"
       },
       "hk1_pump_on_temp_setback": {
-        "name": "Hk1 Pump On Temp Setback"
+        "name": "HK1 Pumpe Ein bei Absenkbetrieb"
       },
       "hk1_frost_protection_temperature": {
-        "name": "Hk1 Frost Protection Temperature"
+        "name": "HK1 Frostschutztemperatur"
       },
       "hk1_pump_off_target_temp": {
-        "name": "Hk1 Pump Off Target Temp"
+        "name": "HK1 Pumpenaus Solltemperatur"
       },
       "hk1_overheat_protection_temp": {
-        "name": "Hk1 Overheat Protection Temp"
+        "name": "HK1 Überhitzungsschutztemperatur"
       },
       "dhw_target_temperature": {
-        "name": "Dhw Target Temperature"
+        "name": "Brauchwasser Solltemperatur"
       },
       "dhw_reheat_below": {
-        "name": "Dhw Reheat Below"
+        "name": "Brauchwasser Nachheizen unter"
       },
       "buffer_delta_kessel_to_layer": {
-        "name": "Buffer Delta Kessel To Layer"
+        "name": "Puffer Delta Kessel zu Schicht"
       },
       "buffer_start_charge_percent": {
-        "name": "Buffer Start Charge Percent"
+        "name": "Puffer Ladestart Prozent"
       },
       "buffer_full_power_below_percent": {
-        "name": "Buffer Full Power Below Percent"
+        "name": "Puffer Volllast unter Prozent"
       },
       "buffer_zero_power_above_percent": {
-        "name": "Buffer Zero Power Above Percent"
+        "name": "Puffer Nullleistung über Prozent"
       },
       "pellet_feed_100_percent_g": {
-        "name": "Pellet Feed 100 Percent G"
+        "name": "Pelletförderung 100 Prozent (g)"
       },
       "pellet_stock_minimum_t": {
-        "name": "Pellet Stock Minimum T"
+        "name": "Pellet Mindestbestand (t)"
       },
       "dhw_heat_pump_off_return_temperature": {
-        "name": "Dhw Heat Pump Off Return Temperature"
+        "name": "Brauchwasser-WP Rücklauf Aus-Temperatur"
       }
     },
     "switch": {
@@ -379,6 +383,9 @@
       },
       "hk2_enabled": {
         "name": "HK2 freigegeben"
+      },
+      "dhw_extra_charge": {
+        "name": "Brauchwasser extra laden"
       }
     },
     "select": {
@@ -413,7 +420,7 @@
         }
       },
       "hk1_buffer_source": {
-        "name": "Hk1 Buffer Source",
+        "name": "HK1 Pufferquelle",
         "state": {
           "kessel": "Kessel",
           "puffer_01": "Puffer 1",
@@ -423,15 +430,15 @@
         }
       },
       "legionella_weekday": {
-        "name": "Legionella Weekday",
+        "name": "Legionellen Wochentag",
         "state": {
-          "monday": "Monday",
-          "tuesday": "Tuesday",
-          "wednesday": "Wednesday",
-          "thursday": "Thursday",
-          "friday": "Friday",
-          "saturday": "Saturday",
-          "sunday": "Sunday"
+          "monday": "Montag",
+          "tuesday": "Dienstag",
+          "wednesday": "Mittwoch",
+          "thursday": "Donnerstag",
+          "friday": "Freitag",
+          "saturday": "Samstag",
+          "sunday": "Sonntag"
         }
       }
     },

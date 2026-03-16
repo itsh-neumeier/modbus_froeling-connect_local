@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-03-16
+
+### Added
+- Added writable `switch.dhw_extra_charge` (extra DHW charge) based on register `41636`.
+
+### Changed
+- Renamed German buffer runtime sensor label to: `Geschätzte Zeit bis Puffer voll bei Betrieb`.
+- Improved DE translations for multiple entity names and option/state labels.
+- Updated DHW heat pump installed sensor wording to presence semantics (`Vorhanden` / `Nicht vorhanden`).
+
+### Fixed
+- Fixed installation filtering so dedicated DHW heat pump entities are kept when DHW boiler is disabled (`has_dhw=false`, `has_dhw_heat_pump=true`).
+- This restores visibility of the dedicated BWP device and its telemetry entities in the device tree.
+
 ## [0.3.2] - 2026-03-16
 
 ### Changed
@@ -75,7 +89,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CI pipeline with hassfest, ruff, bandit, pip-audit, pytest
 - MIT license and security policy
 
-[Unreleased]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.3.2...HEAD
+[Unreleased]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.3.2...v0.4.0
 [0.3.2]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.2.0...v0.3.0

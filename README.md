@@ -132,6 +132,7 @@ The estimate uses:
 | `hk1_modbus_target_temperature` | 48001 | number |
 | `hk2_modbus_target_temperature` | 48002 | number |
 | `dhw_modbus_target_temperature` | 48019 | number |
+| `dhw_extra_charge` | 41636 | switch |
 | `pellet_stock_remaining_t` | 40320 | number |
 | `hk1_operating_mode` | 48047 | select |
 | `hk2_operating_mode` | 48048 | select |

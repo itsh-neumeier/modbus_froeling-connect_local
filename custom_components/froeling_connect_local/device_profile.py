@@ -251,7 +251,10 @@ def apply_installation_options(
     for key, entity in profile.entities.items():
         if heating_circuits < 2 and key.startswith("hk2_"):
             continue
-        if not has_dhw and (key.startswith("dhw_") or key.startswith("legionella_")):
+        if not has_dhw and (
+            (key.startswith("dhw_") and not key.startswith("dhw_heat_pump_"))
+            or key.startswith("legionella_")
+        ):
             continue
         if not has_buffer and key.startswith("buffer_"):
             continue

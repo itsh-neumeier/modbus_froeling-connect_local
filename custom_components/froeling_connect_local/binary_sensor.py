@@ -81,7 +81,6 @@ class FroelingDhwHeatPumpInstalledBinarySensor(
     """Expose configured DHW heat pump presence and create dedicated BWP device."""
 
     _attr_entity_category = EntityCategory.DIAGNOSTIC
-    _attr_device_class = BinarySensorDeviceClass.RUNNING
 
     def __init__(self, coordinator: FroelingLocalDataUpdateCoordinator) -> None:
         super().__init__(coordinator, "dhw_heat_pump_installed")

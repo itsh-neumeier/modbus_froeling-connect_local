@@ -269,7 +269,11 @@
         "name": "Gateway connected"
       },
       "dhw_heat_pump_installed": {
-        "name": "DHW heat pump installed"
+        "name": "DHW heat pump present",
+        "state": {
+          "on": "Present",
+          "off": "Not present"
+        }
       },
       "dhw_heat_pump_flow_switch": {
         "name": "Dhw Heat Pump Flow Switch"
@@ -379,6 +383,9 @@
       },
       "hk2_enabled": {
         "name": "HK2 enabled"
+      },
+      "dhw_extra_charge": {
+        "name": "DHW extra charge"
       }
     },
     "select": {

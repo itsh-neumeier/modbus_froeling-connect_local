@@ -875,6 +875,16 @@ entities:
     enabled_by_default: false
     device_key: boiler_01
 
+  - key: dhw_extra_charge
+    platform: switch
+    register: 41636
+    register_type: holding
+    value_type: bool
+    writeable: true
+    entity_category: config
+    enabled_by_default: true
+    device_key: boiler_01
+
   - key: legionella_weekday
     platform: select
     register: 41638

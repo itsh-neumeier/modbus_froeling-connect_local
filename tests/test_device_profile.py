@@ -54,3 +54,17 @@ def test_installation_options_filter_entities() -> None:
     assert "hk2_operating_mode" not in adapted.entities
     assert "dhw_modbus_target_temperature" not in adapted.entities
     assert "buffer_top_temperature" not in adapted.entities
+
+
+def test_dhw_heat_pump_entities_keep_when_dhw_disabled() -> None:
+    profile = load_profile("sp_dual")
+    adapted = apply_installation_options(
+        profile,
+        heating_circuits=1,
+        has_dhw=False,
+        has_buffer=True,
+        has_dhw_heat_pump=True,
+    )
+
+    assert "dhw_heat_pump_return_temperature" in adapted.entities
+    assert "dhw_heat_pump_installed" not in adapted.entities

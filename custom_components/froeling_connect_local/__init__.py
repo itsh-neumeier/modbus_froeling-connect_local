@@ -9,6 +9,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST, CONF_PORT
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
+from homeassistant.helpers import entity_registry as er
 
 from .const import (
     CONF_BOILER_POWER_KW,
@@ -43,6 +44,12 @@ from .coordinator import FroelingLocalDataUpdateCoordinator
 from .device_profile import ProfileError, apply_installation_options, load_profile
 
 _LOGGER = logging.getLogger(__name__)
+
+_FORCE_ENABLED_TRANSLATION_KEYS = {
+    "hk1_operating_mode",
+    "hk2_operating_mode",
+    "dhw_extra_charge",
+}
 
 
 FroelingConfigEntry = ConfigEntry[FroelingLocalDataUpdateCoordinator]
@@ -85,6 +92,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: FroelingConfigEntry) -> 
     entry.runtime_data = coordinator
     hass.data[DOMAIN][entry.entry_id] = coordinator
 
+    _async_restore_integration_disabled_entities(hass, entry)
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     return True
 
@@ -151,3 +159,26 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     _LOGGER.info("Migration for %s completed", entry.entry_id)
     return True
+
+
+def _async_restore_integration_disabled_entities(
+    hass: HomeAssistant,
+    entry: ConfigEntry,
+) -> None:
+    """Re-enable entities that are now user-facing by default."""
+    registry = er.async_get(hass)
+    restored = 0
+    for registry_entry in er.async_entries_for_config_entry(registry, entry.entry_id):
+        if (
+            registry_entry.translation_key in _FORCE_ENABLED_TRANSLATION_KEYS
+            and registry_entry.disabled_by == er.RegistryEntryDisabler.INTEGRATION
+        ):
+            registry.async_update_entity(registry_entry.entity_id, disabled_by=None)
+            restored += 1
+
+    if restored:
+        _LOGGER.info(
+            "Restored %s previously integration-disabled entities for %s",
+            restored,
+            entry.entry_id,
+        )

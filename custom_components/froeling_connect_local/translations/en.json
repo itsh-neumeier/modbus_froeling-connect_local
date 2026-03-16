@@ -385,7 +385,7 @@
         "name": "HK2 enabled"
       },
       "dhw_extra_charge": {
-        "name": "DHW extra charge"
+        "name": "DHW heat pump extra charge"
       }
     },
     "select": {

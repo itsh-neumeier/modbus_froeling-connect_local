@@ -439,7 +439,7 @@ entities:
     writeable: true
     device_key: heating_circuit_1
     entity_category: config
-    enabled_by_default: false
+    enabled_by_default: true
     options:
       "0": "off"
       "1": automatic
@@ -456,7 +456,7 @@ entities:
     writeable: true
     device_key: heating_circuit_2
     entity_category: config
-    enabled_by_default: false
+    enabled_by_default: true
     options:
       "0": "off"
       "1": automatic
@@ -883,7 +883,7 @@ entities:
     writeable: true
     entity_category: config
     enabled_by_default: true
-    device_key: boiler_01
+    device_key: dhw_heat_pump
 
   - key: legionella_weekday
     platform: select

@@ -67,4 +67,13 @@ def test_dhw_heat_pump_entities_keep_when_dhw_disabled() -> None:
     )
 
     assert "dhw_heat_pump_return_temperature" in adapted.entities
+    assert "dhw_extra_charge" in adapted.entities
+    assert adapted.entities["dhw_extra_charge"].device_key == "dhw_heat_pump"
     assert "dhw_heat_pump_installed" not in adapted.entities
+
+
+def test_hk_operating_mode_is_enabled_by_default() -> None:
+    profile = load_profile("sp_dual")
+
+    assert profile.entities["hk1_operating_mode"].enabled_by_default is True
+    assert profile.entities["hk2_operating_mode"].enabled_by_default is True

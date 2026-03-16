@@ -249,10 +249,16 @@ def apply_installation_options(
     """Return a profile filtered by installation-specific options."""
     filtered_entities: dict[str, EntityProfile] = {}
     for key, entity in profile.entities.items():
+        allow_dhw_for_heat_pump = has_dhw_heat_pump and key in {"dhw_extra_charge"}
+
         if heating_circuits < 2 and key.startswith("hk2_"):
             continue
         if not has_dhw and (
-            (key.startswith("dhw_") and not key.startswith("dhw_heat_pump_"))
+            (
+                key.startswith("dhw_")
+                and not key.startswith("dhw_heat_pump_")
+                and not allow_dhw_for_heat_pump
+            )
             or key.startswith("legionella_")
         ):
             continue

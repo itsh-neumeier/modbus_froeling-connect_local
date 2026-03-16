@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-03-16
+
+### Changed
+- Enabled `select.hk1_operating_mode` and `select.hk2_operating_mode` by default so `Extra heat` and `Party` mode are immediately available in the UI.
+- Moved `switch.dhw_extra_charge` to the dedicated BWP device for clearer device grouping.
+- Updated switch naming to `BWP extra laden` (DE) / `DHW heat pump extra charge` (EN).
+
+### Fixed
+- Fixed profile filtering so `dhw_extra_charge` remains available when DHW boiler is disabled but BWP is present (`has_dhw=false`, `has_dhw_heat_pump=true`).
+
 ## [0.4.0] - 2026-03-16
 
 ### Added
@@ -89,7 +99,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CI pipeline with hassfest, ruff, bandit, pip-audit, pytest
 - MIT license and security policy
 
-[Unreleased]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.4.1...HEAD
+[0.4.1]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.3.2...v0.4.0
 [0.3.2]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.3.0...v0.3.1

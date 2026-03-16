@@ -11,16 +11,16 @@ devices:
     name: Kessel
     model: Boiler
   boiler_01:
-    name: Boiler 01
+    name: Boiler 1
     model: Domestic Hot Water
   buffer_1:
-    name: Puffer 01
+    name: Puffer 1
     model: Buffer
   heating_circuit_1:
-    name: Heizkreis 01
+    name: Heizkreis 1
     model: Heating Circuit
   heating_circuit_2:
-    name: Heizkreis 02
+    name: Heizkreis 2
     model: Heating Circuit
   pellet_unit:
     name: Pellet Einheit

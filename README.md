@@ -48,10 +48,10 @@ This project is designed for Home Assistant `2026.3+`, HACS installation, and lo
    - host
    - port (default `502`)
    - slave ID (default `2`)
-   - number of heating circuits (1-2)
-   - DHW available
+   - number of heating circuits (1-12)
+   - domestic hot water boiler available
    - buffer tank available
-   - DHW heat pump available
+   - dedicated DHW heating (DHW heat pump) available
    - buffer volume in liters
    - boiler nominal power in kW (for runtime estimation)
    - device profile

@@ -10,15 +10,15 @@
           "host": "Host",
           "port": "Port",
           "slave": "Modbus-Slave-ID",
-          "heating_circuits": "Anzahl Heizkreise",
-          "has_dhw": "Brauchwasser vorhanden",
-          "has_buffer": "Pufferspeicher vorhanden",
-          "has_dhw_heat_pump": "Brauchwasser-Wärmepumpe vorhanden",
           "profile": "Geräteprofil",
-          "scan_interval": "Abfrageintervall (Sekunden)",
-          "timeout": "Verbindungs-Timeout (Sekunden)",
+          "boiler_power_kw": "Nennleistung Kessel (kW)",
+          "has_buffer": "Pufferspeicher vorhanden",
           "buffer_liters": "Puffervolumen (Liter)",
-          "boiler_power_kw": "Nennleistung Kessel (kW)"
+          "heating_circuits": "Anzahl Heizkreise",
+          "has_dhw_heat_pump": "Dedizierte Warmwassererwärmung (Brauchwasser-WP) vorhanden",
+          "has_dhw": "Brauchwasser-Boiler vorhanden",
+          "scan_interval": "Abfrageintervall (Sekunden)",
+          "timeout": "Verbindungs-Timeout (Sekunden)"
         }
       }
     },
@@ -40,15 +40,15 @@
           "host": "Host",
           "port": "Port",
           "slave": "Modbus-Slave-ID",
-          "heating_circuits": "Anzahl Heizkreise",
-          "has_dhw": "Brauchwasser vorhanden",
-          "has_buffer": "Pufferspeicher vorhanden",
-          "has_dhw_heat_pump": "Brauchwasser-Wärmepumpe vorhanden",
           "profile": "Geräteprofil",
-          "scan_interval": "Abfrageintervall (Sekunden)",
-          "timeout": "Verbindungs-Timeout (Sekunden)",
+          "boiler_power_kw": "Nennleistung Kessel (kW)",
+          "has_buffer": "Pufferspeicher vorhanden",
           "buffer_liters": "Puffervolumen (Liter)",
-          "boiler_power_kw": "Nennleistung Kessel (kW)"
+          "heating_circuits": "Anzahl Heizkreise",
+          "has_dhw_heat_pump": "Dedizierte Warmwassererwärmung (Brauchwasser-WP) vorhanden",
+          "has_dhw": "Brauchwasser-Boiler vorhanden",
+          "scan_interval": "Abfrageintervall (Sekunden)",
+          "timeout": "Verbindungs-Timeout (Sekunden)"
         }
       }
     },
@@ -416,10 +416,10 @@
         "name": "Hk1 Buffer Source",
         "state": {
           "kessel": "Kessel",
-          "puffer_01": "Puffer 01",
-          "puffer_02": "Puffer 02",
-          "puffer_03": "Puffer 03",
-          "puffer_04": "Puffer 04"
+          "puffer_01": "Puffer 1",
+          "puffer_02": "Puffer 2",
+          "puffer_03": "Puffer 3",
+          "puffer_04": "Puffer 4"
         }
       },
       "legionella_weekday": {

@@ -48,10 +48,10 @@ Dieses Projekt ist für Home Assistant `2026.3+`, HACS-Installation und langfris
    - Host
    - Port (Standard `502`)
    - Slave-ID (Standard `2`)
-   - Anzahl Heizkreise (1-2)
-   - Brauchwasser vorhanden
+   - Anzahl Heizkreise (1-12)
+   - Brauchwasser-Boiler vorhanden
    - Pufferspeicher vorhanden
-   - Brauchwasser-Wärmepumpe vorhanden
+   - Dedizierte Warmwassererwärmung (Brauchwasser-WP) vorhanden
    - Puffervolumen in Litern
    - Kessel-Nennleistung in kW (für Laufzeitschätzung)
    - Geräteprofil

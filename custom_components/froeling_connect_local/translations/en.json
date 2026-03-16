@@ -10,13 +10,13 @@
           "host": "Host",
           "port": "Port",
           "slave": "Modbus slave ID",
-          "heating_circuits": "Number of heating circuits",
-          "has_dhw": "Domestic hot water (DHW) available",
-          "has_buffer": "Buffer tank available",
-          "has_dhw_heat_pump": "DHW heat pump available",
-          "buffer_liters": "Buffer volume (liters)",
-          "boiler_power_kw": "Boiler nominal power (kW)",
           "profile": "Device profile",
+          "boiler_power_kw": "Boiler nominal power (kW)",
+          "has_buffer": "Buffer tank available",
+          "buffer_liters": "Buffer volume (liters)",
+          "heating_circuits": "Number of heating circuits",
+          "has_dhw_heat_pump": "Dedicated DHW heating (DHW heat pump) available",
+          "has_dhw": "Domestic hot water boiler available",
           "scan_interval": "Polling interval (seconds)",
           "timeout": "Connection timeout (seconds)"
         }
@@ -40,13 +40,13 @@
           "host": "Host",
           "port": "Port",
           "slave": "Modbus slave ID",
-          "heating_circuits": "Number of heating circuits",
-          "has_dhw": "Domestic hot water (DHW) available",
-          "has_buffer": "Buffer tank available",
-          "has_dhw_heat_pump": "DHW heat pump available",
-          "buffer_liters": "Buffer volume (liters)",
-          "boiler_power_kw": "Boiler nominal power (kW)",
           "profile": "Device profile",
+          "boiler_power_kw": "Boiler nominal power (kW)",
+          "has_buffer": "Buffer tank available",
+          "buffer_liters": "Buffer volume (liters)",
+          "heating_circuits": "Number of heating circuits",
+          "has_dhw_heat_pump": "Dedicated DHW heating (DHW heat pump) available",
+          "has_dhw": "Domestic hot water boiler available",
           "scan_interval": "Polling interval (seconds)",
           "timeout": "Connection timeout (seconds)"
         }
@@ -416,10 +416,10 @@
         "name": "Hk1 Buffer Source",
         "state": {
           "kessel": "Kessel",
-          "puffer_01": "Puffer 01",
-          "puffer_02": "Puffer 02",
-          "puffer_03": "Puffer 03",
-          "puffer_04": "Puffer 04"
+          "puffer_01": "Puffer 1",
+          "puffer_02": "Puffer 2",
+          "puffer_03": "Puffer 3",
+          "puffer_04": "Puffer 4"
         }
       },
       "legionella_weekday": {

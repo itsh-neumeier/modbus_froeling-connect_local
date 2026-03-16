@@ -203,22 +203,9 @@ def _build_schema(defaults: dict[str, Any] | None) -> vol.Schema:
                 vol.Range(min=1, max=247),
             ),
             vol.Required(
-                CONF_HEATING_CIRCUITS,
-                default=data.get(CONF_HEATING_CIRCUITS, DEFAULT_HEATING_CIRCUITS),
-            ): _number_selector(min_value=1, max_value=2, step=1, integer=True),
-            vol.Required(CONF_HAS_DHW, default=data.get(CONF_HAS_DHW, DEFAULT_HAS_DHW)): bool,
-            vol.Required(
-                CONF_HAS_BUFFER,
-                default=data.get(CONF_HAS_BUFFER, DEFAULT_HAS_BUFFER),
-            ): bool,
-            vol.Required(
-                CONF_HAS_DHW_HEAT_PUMP,
-                default=data.get(CONF_HAS_DHW_HEAT_PUMP, DEFAULT_HAS_DHW_HEAT_PUMP),
-            ): bool,
-            vol.Required(
-                CONF_BUFFER_LITERS,
-                default=data.get(CONF_BUFFER_LITERS, DEFAULT_BUFFER_LITERS),
-            ): _number_selector(min_value=100, max_value=10000, step=10, integer=True, unit="L"),
+                CONF_PROFILE,
+                default=data.get(CONF_PROFILE, DEFAULT_PROFILE),
+            ): _profile_selector(profile_choices),
             vol.Required(
                 CONF_BOILER_POWER_KW,
                 default=data.get(CONF_BOILER_POWER_KW, DEFAULT_BOILER_POWER_KW),
@@ -230,9 +217,22 @@ def _build_schema(defaults: dict[str, Any] | None) -> vol.Schema:
                 unit="kW",
             ),
             vol.Required(
-                CONF_PROFILE,
-                default=data.get(CONF_PROFILE, DEFAULT_PROFILE),
-            ): _profile_selector(profile_choices),
+                CONF_HAS_BUFFER,
+                default=data.get(CONF_HAS_BUFFER, DEFAULT_HAS_BUFFER),
+            ): bool,
+            vol.Required(
+                CONF_BUFFER_LITERS,
+                default=data.get(CONF_BUFFER_LITERS, DEFAULT_BUFFER_LITERS),
+            ): _number_selector(min_value=100, max_value=10000, step=10, integer=True, unit="L"),
+            vol.Required(
+                CONF_HEATING_CIRCUITS,
+                default=data.get(CONF_HEATING_CIRCUITS, DEFAULT_HEATING_CIRCUITS),
+            ): vol.All(int, vol.Range(min=1, max=12)),
+            vol.Required(
+                CONF_HAS_DHW_HEAT_PUMP,
+                default=data.get(CONF_HAS_DHW_HEAT_PUMP, DEFAULT_HAS_DHW_HEAT_PUMP),
+            ): bool,
+            vol.Required(CONF_HAS_DHW, default=data.get(CONF_HAS_DHW, DEFAULT_HAS_DHW)): bool,
             vol.Required(
                 CONF_SCAN_INTERVAL,
                 default=data.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL),

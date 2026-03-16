@@ -10,11 +10,11 @@ devices:
   kessel:
     name: Kessel
   boiler_01:
-    name: Boiler 01
+    name: Boiler 1
   heating_circuit_1:
-    name: Heizkreis 01
+    name: Heizkreis 1
   buffer_1:
-    name: Puffer 01
+    name: Puffer 1
   pellet_unit:
     name: Pellet Einheit
   auger:

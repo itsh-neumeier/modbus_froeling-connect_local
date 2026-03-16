@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-03-16
+
+### Changed
+- Reordered Config/Options Flow fields to prioritize: slave ID, device profile, boiler power, buffer enable + liters, heating circuit count, and dedicated DHW heating.
+- Changed heating circuit input to a plain numeric field (`1..12`) instead of a selector control.
+- Updated DHW labels for clearer distinction between DHW boiler and dedicated DHW heat pump.
+- Removed leading zeroes from numbered device friendly names (for example `Boiler 1`, `Puffer 1`, `Heizkreis 1`).
+- Updated translated buffer source state labels to `Puffer 1..4`.
+
 ## [0.3.1] - 2026-03-16
 
 ### Fixed
@@ -18,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Live-validated SP Dual register expansion (based on Modbus reads from device):
-  - Kessel-/Austragungs-/Pellet-/Boiler-01-/BWP-/Puffer-Datenpunkte
+  - Kessel-/Austragungs-/Pellet-/Boiler-1-/BWP-/Puffer-Datenpunkte
   - additional config/setpoint entities for HK1, DHW, buffer, pellet feed
 - New config/options parameters for runtime estimation:
   - `buffer_liters`
@@ -26,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New diagnostic sensor `buffer_estimated_time_to_full` (estimated runtime to 100% buffer level)
 
 ### Changed
-- Device hierarchy aligned to multi-device layout (gateway + dedicated child devices for Kessel, Austragung, Pellet, Heizkreis, Boiler 01, Puffer 01, optional BWP)
+- Device hierarchy aligned to multi-device layout (gateway + dedicated child devices for Kessel, Austragung, Pellet, Heizkreis, Boiler 1, Puffer 1, optional BWP)
 - Switched brand assets to official Froeling logos from froeling.com
 - Manufacturer metadata normalized to `Fröling GmbH`
 - EN/DE translation coverage extended for all added entities and options
@@ -66,7 +75,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CI pipeline with hassfest, ruff, bandit, pip-audit, pytest
 - MIT license and security policy
 
-[Unreleased]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.3.1...HEAD
+[Unreleased]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.3.2...HEAD
+[0.3.2]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.1.1...v0.2.0

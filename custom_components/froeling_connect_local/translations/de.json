@@ -129,13 +129,13 @@
         "name": "HK2 Vorlauf Soll"
       },
       "buffer_top_temperature": {
-        "name": "Puffer Temperatur oben"
+        "name": "Puffer Temperatur 1 oben"
       },
       "buffer_middle_temperature": {
-        "name": "Puffer Temperatur mitte"
+        "name": "Puffer Temperatur 2 mitte"
       },
       "buffer_bottom_temperature": {
-        "name": "Puffer Temperatur unten"
+        "name": "Puffer Temperatur 3 unten"
       },
       "buffer_charge_percent": {
         "name": "Puffer Ladezustand"

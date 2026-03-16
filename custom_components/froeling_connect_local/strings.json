@@ -129,13 +129,13 @@
         "name": "HK2 flow temperature target"
       },
       "buffer_top_temperature": {
-        "name": "Buffer top temperature"
+        "name": "Buffer temperature 1 top"
       },
       "buffer_middle_temperature": {
-        "name": "Buffer middle temperature"
+        "name": "Buffer temperature 2 middle"
       },
       "buffer_bottom_temperature": {
-        "name": "Buffer bottom temperature"
+        "name": "Buffer temperature 3 bottom"
       },
       "buffer_charge_percent": {
         "name": "Buffer charge"

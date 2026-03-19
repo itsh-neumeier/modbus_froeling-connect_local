@@ -111,7 +111,7 @@
         "name": "Flue gas temperature"
       },
       "oxygen_residual": {
-        "name": "Residual oxygen"
+        "name": "Residual oxygen content"
       },
       "boiler_pump_speed": {
         "name": "Boiler pump speed"
@@ -177,19 +177,19 @@
         "name": "Auger Current"
       },
       "pellet_consumption_reset_kg": {
-        "name": "Pellet Consumption Reset Kg"
+        "name": "Fuel Counter [kg]"
       },
       "pellet_consumption_reset_t": {
-        "name": "Pellet Consumption Reset T"
+        "name": "Pellet Consumption Counter"
       },
       "pellet_consumption_total_t": {
-        "name": "Pellet Consumption Total T"
+        "name": "Total Fuel Consumption [t]"
       },
       "dhw_temperature_top": {
-        "name": "Dhw Temperature Top"
+        "name": "Boiler Temperature Top"
       },
       "dhw_pump_speed": {
-        "name": "Dhw Pump Speed"
+        "name": "Boiler Pump Control Output"
       },
       "buffer_pump_speed": {
         "name": "Buffer Pump Speed"
@@ -253,6 +253,42 @@
       },
       "buffer_volume_liters_register": {
         "name": "Buffer Volume Liters Register"
+      },
+      "operating_hours": {
+        "name": "Operating Hours"
+      },
+      "burner_starts": {
+        "name": "Burner Starts"
+      },
+      "ember_preservation_hours": {
+        "name": "Operating Hours in Ember Preservation"
+      },
+      "return_temperature": {
+        "name": "Return Temperature Sensor"
+      },
+      "primary_air": {
+        "name": "Primary Air"
+      },
+      "induced_draft_control_output": {
+        "name": "Induced Draft Control Output"
+      },
+      "secondary_air": {
+        "name": "Secondary Air"
+      },
+      "hours_since_last_maintenance": {
+        "name": "Hours Since Last Maintenance"
+      },
+      "hours_in_heating": {
+        "name": "Hours in Heating"
+      },
+      "hours_in_part_load": {
+        "name": "Hours in Part-Load Operation"
+      },
+      "hours_in_logwood_operation": {
+        "name": "Hours in Logwood Operation"
+      },
+      "remaining_heating_hours_until_ash_empty": {
+        "name": "Remaining Heating Hours Until Emptying Ash"
       }
     },
     "binary_sensor": {
@@ -267,6 +303,9 @@
       },
       "gateway_connected": {
         "name": "Gateway connected"
+      },
+      "gateway_alive": {
+        "name": "Gateway alive"
       },
       "dhw_heat_pump_installed": {
         "name": "DHW heat pump present",
@@ -308,7 +347,7 @@
     },
     "number": {
       "boiler_target_temperature": {
-        "name": "Boiler target temperature"
+        "name": "Boiler Target Temperature"
       },
       "hk1_modbus_target_temperature": {
         "name": "HK1 Modbus target temperature"
@@ -320,37 +359,37 @@
         "name": "DHW Modbus target temperature"
       },
       "pellet_stock_remaining_t": {
-        "name": "Pellet stock remaining"
+        "name": "Pellet Store Remaining"
       },
       "hk1_curve_temp_plus10": {
-        "name": "Hk1 Curve Temp Plus10"
+        "name": "Desired Flow Temperature at +10°C Outside"
       },
       "hk1_curve_temp_minus10": {
-        "name": "Hk1 Curve Temp Minus10"
+        "name": "Desired Flow Temperature at -10°C Outside"
       },
       "hk1_setback_delta": {
-        "name": "Hk1 Setback Delta"
+        "name": "Flow Temperature Reduction in Setback Mode"
       },
       "hk1_pump_on_temp_heating": {
-        "name": "Hk1 Pump On Temp Heating"
+        "name": "Outside Temperature Below Which Heating Pump Starts"
       },
       "hk1_pump_on_temp_setback": {
-        "name": "Hk1 Pump On Temp Setback"
+        "name": "Outside Temperature Below Which Setback Pump Starts"
       },
       "hk1_frost_protection_temperature": {
-        "name": "Hk1 Frost Protection Temperature"
+        "name": "Frost Protection Temperature"
       },
       "hk1_pump_off_target_temp": {
-        "name": "Hk1 Pump Off Target Temp"
+        "name": "Turn Heating Pump Off When Flow Target Falls Below"
       },
       "hk1_overheat_protection_temp": {
-        "name": "Hk1 Overheat Protection Temp"
+        "name": "Buffer Top Temperature for Overheat Protection"
       },
       "dhw_target_temperature": {
-        "name": "Dhw Target Temperature"
+        "name": "Desired Boiler Temperature"
       },
       "dhw_reheat_below": {
-        "name": "Dhw Reheat Below"
+        "name": "Recharge When Boiler Temperature Drops Below"
       },
       "buffer_delta_kessel_to_layer": {
         "name": "Buffer Delta Kessel To Layer"
@@ -368,7 +407,7 @@
         "name": "Pellet Feed 100 Percent G"
       },
       "pellet_stock_minimum_t": {
-        "name": "Pellet Stock Minimum T"
+        "name": "Pellet Store Minimum"
       },
       "dhw_heat_pump_off_return_temperature": {
         "name": "Dhw Heat Pump Off Return Temperature"
@@ -386,6 +425,9 @@
       },
       "dhw_extra_charge": {
         "name": "DHW heat pump extra charge"
+      },
+      "automatic_pellet_extraction_disabled": {
+        "name": "Automatic Pellet Extraction Disabled"
       }
     },
     "select": {
@@ -445,6 +487,9 @@
     "button": {
       "reconnect_gateway": {
         "name": "Reconnect gateway"
+      },
+      "restart_gateway": {
+        "name": "Restart gateway"
       }
     }
   }

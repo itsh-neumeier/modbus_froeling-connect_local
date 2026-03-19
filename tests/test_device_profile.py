@@ -39,6 +39,11 @@ def test_sp_dual_profile_exists() -> None:
     assert profile.profile_id == "sp_dual"
     assert profile.model == "SP Dual"
     assert "fuel_selection" in profile.entities
+    assert "operating_hours" in profile.entities
+    assert "remaining_heating_hours_until_ash_empty" in profile.entities
+    assert profile.entities["pellet_level_percent"].device_key == "auger"
+    assert profile.entities["pellet_stock_remaining_t"].device_key == "auger"
+    assert profile.entities["boiler_target_temperature"].enabled_by_default is True
 
 
 def test_installation_options_filter_entities() -> None:

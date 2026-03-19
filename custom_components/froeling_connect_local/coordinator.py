@@ -16,7 +16,13 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from homeassistant.util import dt as dt_util
 from pymodbus.client import ModbusTcpClient
 
-from .const import CONF_SCAN_INTERVAL, CONF_SLAVE, CONF_TIMEOUT, DOMAIN
+from .const import (
+    CONF_SCAN_INTERVAL,
+    CONF_SLAVE,
+    CONF_TIMEOUT,
+    DOMAIN,
+    gateway_stale_after,
+)
 from .device_profile import (
     DeviceProfile,
     EntityProfile,
@@ -133,8 +139,16 @@ class FroelingLocalDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         started = time.perf_counter()
         register_values: dict[int, int] = {}
         errors: list[str] = []
+        should_reset_connection = self._should_auto_reset_connection()
 
         async with self._io_lock:
+            if should_reset_connection:
+                _LOGGER.warning(
+                    "No successful Modbus update for %.1f seconds. Resetting connection before next poll.",
+                    self._last_success_age_seconds(),
+                )
+                await self.hass.async_add_executor_job(self._gateway.reset_connection)
+
             for register_type, start_register, count in self._read_ranges:
                 address = register_to_address(register_type, start_register)
                 try:
@@ -179,6 +193,27 @@ class FroelingLocalDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self.connected = True
         self.last_success = dt_util.utcnow()
         return decoded
+
+    def _should_auto_reset_connection(self) -> bool:
+        """Return True when the gateway should be reset before polling."""
+        last_success = self.last_success
+        if last_success is None:
+            return False
+        return (dt_util.utcnow() - last_success) > self._stale_after
+
+    def _last_success_age_seconds(self) -> float:
+        """Return the age of the latest successful update in seconds."""
+        last_success = self.last_success
+        if last_success is None:
+            return 0.0
+        return round((dt_util.utcnow() - last_success).total_seconds(), 1)
+
+    @property
+    def _stale_after(self) -> timedelta:
+        """Return the max age after which the connection should be reset."""
+        scan_interval = int(self.entry.data[CONF_SCAN_INTERVAL])
+        timeout = int(self.entry.data[CONF_TIMEOUT])
+        return gateway_stale_after(scan_interval, timeout)
 
 
 class _FroelingModbusGateway:

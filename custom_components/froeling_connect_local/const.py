@@ -34,6 +34,7 @@ DEFAULT_HAS_DHW_HEAT_PUMP = False
 DEFAULT_BUFFER_LITERS = 3000
 DEFAULT_BOILER_POWER_KW = 22.0
 DEFAULT_BUFFER_DELTA_K = 40
+DEFAULT_GATEWAY_STALE_MULTIPLIER = 3
 
 MIN_SCAN_INTERVAL = 5
 MAX_SCAN_INTERVAL = 300
@@ -53,3 +54,13 @@ PLATFORMS: list[Platform] = [
 ]
 
 DEFAULT_UPDATE_INTERVAL = timedelta(seconds=DEFAULT_SCAN_INTERVAL)
+
+
+def gateway_stale_after(scan_interval: int, timeout: int) -> timedelta:
+    """Return the max age after which the gateway is considered stale."""
+    return timedelta(
+        seconds=max(
+            scan_interval * DEFAULT_GATEWAY_STALE_MULTIPLIER,
+            timeout * 2,
+        ),
+    )

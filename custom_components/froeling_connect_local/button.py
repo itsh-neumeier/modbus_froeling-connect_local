@@ -18,7 +18,12 @@ async def async_setup_entry(
 ) -> None:
     """Set up Froeling diagnostic button entities."""
     coordinator: FroelingLocalDataUpdateCoordinator = entry.runtime_data
-    async_add_entities([FroelingReconnectButton(coordinator)])
+    async_add_entities(
+        [
+            FroelingReconnectButton(coordinator),
+            FroelingRestartGatewayButton(coordinator),
+        ],
+    )
 
 
 class FroelingReconnectButton(FroelingCoordinatorDiagnosticEntity, ButtonEntity):
@@ -29,6 +34,19 @@ class FroelingReconnectButton(FroelingCoordinatorDiagnosticEntity, ButtonEntity)
     def __init__(self, coordinator: FroelingLocalDataUpdateCoordinator) -> None:
         super().__init__(coordinator, "reconnect_gateway")
         self._attr_icon = "mdi:lan-connect"
+
+    async def async_press(self) -> None:
+        await self.coordinator.async_reconnect()
+
+
+class FroelingRestartGatewayButton(FroelingCoordinatorDiagnosticEntity, ButtonEntity):
+    """Restart the Modbus TCP connection and refresh data immediately."""
+
+    _attr_entity_category = EntityCategory.DIAGNOSTIC
+
+    def __init__(self, coordinator: FroelingLocalDataUpdateCoordinator) -> None:
+        super().__init__(coordinator, "restart_gateway")
+        self._attr_icon = "mdi:restart"
 
     async def async_press(self) -> None:
         await self.coordinator.async_reconnect()

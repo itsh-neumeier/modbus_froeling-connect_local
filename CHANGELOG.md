@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-03-19
+
+### Added
+- Added new SP Dual device-mapped entities for key Fröling Connect values:
+  - operating hours
+  - burner starts
+  - ember preservation hours
+  - return temperature
+  - primary air
+  - induced draft control output
+  - secondary air
+  - maintenance hours
+  - heating / part-load / logwood hours
+  - remaining heating hours until ash emptying
+- Added diagnostic `gateway_alive` binary sensor.
+- Added dedicated `restart_gateway` button entity.
+- Added automatic Modbus connection reset when no fresh data arrives for `3 x scan_interval`.
+
+### Changed
+- Moved pellet stock and pellet consumption entities to the `Austragung` device for a more Fröling-like device layout.
+- Enabled important SP Dual setpoints by default to better match the Fröling Connect UI:
+  - boiler target temperature
+  - HK1 curve values
+  - HK1 setback / pump / frost / overheat settings
+  - DHW target and recharge threshold
+  - buffer release temperature and buffer delta
+- Reworked `README.md` and `README.de.md` into the same structure/style used in the `dahua_vto` repository.
+- Refined DE/EN translations for SP Dual labels and diagnostics.
+
 ## [0.4.3] - 2026-03-16
 
 ### Changed
@@ -116,7 +145,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CI pipeline with hassfest, ruff, bandit, pip-audit, pytest
 - MIT license and security policy
 
-[Unreleased]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.4.3...HEAD
+[Unreleased]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.4.3...v0.5.0
 [0.4.3]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.4.2...v0.4.3
 [0.4.2]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/itsh-neumeier/modbus_froeling-connect_local/compare/v0.4.0...v0.4.1

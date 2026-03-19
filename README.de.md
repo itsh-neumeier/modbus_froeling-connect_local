@@ -1,84 +1,109 @@
-# Fröling Connect local
+# Fröling Connect local - Home-Assistant-Integration
 
-Home-Assistant-Custom-Integration für **lokalen** Zugriff auf Fröling-Regler über **Modbus TCP**.
+[![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge&logo=home-assistant)](https://hacs.xyz/)
+[![HA Version](https://img.shields.io/badge/Home%20Assistant-2026.3%2B-18BCF2?style=for-the-badge&logo=home-assistant)](https://www.home-assistant.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-0B0F19.svg?style=for-the-badge)](LICENSE)
+[![Version](https://img.shields.io/github/v/release/itsh-neumeier/modbus_froeling-connect_local?style=for-the-badge)](https://github.com/itsh-neumeier/modbus_froeling-connect_local/releases)
 
-Dieses Projekt ist für Home Assistant `2026.3+`, HACS-Installation und langfristige Wartbarkeit ausgelegt.
+> English documentation: [README.md](README.md)
+
+Vollständige Home-Assistant-Integration für lokale Fröling-Regler über Modbus TCP, mit sauberer Gerätezuordnung für Kessel, Heizkreise, Boiler, Puffer, Austragung und optionale Brauchwasser-Wärmepumpe.
+
+* * *
+
+## Unterstützte Systeme
+
+| Profil | Regler / System | Status |
+|---|---|---|
+| `sp_dual` | Fröling SP Dual | Live getestet |
+| `sp_dual_compact` | Fröling SP Dual Compact | Profilbasiert, von SP Dual abgeleitet |
+| `lambdatronic_s3200` | Generischer Lambdatronic S3200 | Basisprofil |
+
+* * *
 
 ## Funktionen
 
-- Native Home-Assistant-Integration (`config_flow`, `options_flow`)
-- Lokales Modbus-TCP-Polling (keine Cloud-Abhängigkeit)
-- Geräteprofil-Auswahl per Dropdown bei der Einrichtung
-- Profildefinitionen in YAML (`device_profiles/*.yaml`)
-- Modellabhängige Vererbung mit Overrides und Excludes
-- Geblockte Register-Reads via `DataUpdateCoordinator`
-- Wiederverwendete TCP-Verbindung mit Timeout/Fehlerbehandlung
-- Sichere Defaults:
-  - nutzerrelevante Sensoren aktiv
-  - Schreib-/Service-Entitäten standardmäßig deaktiviert
-- EN/DE Übersetzungen inkl. States/Options
-- HACS-Metadaten, Branding, CI, Security-Policy, Changelog
+### Geräte
 
-## Unterstützte Profile
+| Home-Assistant-Gerät | Typisches Fröling-Modul |
+|---|---|
+| Gateway | Hauptregler / Touch-Regler |
+| Kessel | Kesselwerte und Feuerungszustand |
+| Heizkreis 1 / 2 | Vorlauftemperaturen, Betriebsarten, Heizkurve |
+| Boiler 1 | Brauchwasser-Boiler |
+| Puffer 1 | Puffertemperaturen, Ladezustand, Pumpenansteuerung |
+| Austragung | Pelletlager / Austragung / Zähler |
+| BWP | Dedizierte Brauchwasser-Wärmepumpe, falls vorhanden |
 
-- `lambdatronic_s3200` - Generisches Lambdatronic-S3200-Profil
-- `sp_dual` - SP-Dual-Profil
-- `sp_dual_compact` - Abgeleitetes Profil mit SP-Dual-Compact-Overrides
+### Entitäten
+
+| Plattform | Beispiele |
+|---|---|
+| `sensor` | Kesselzustand, Kesseltemperatur, Abgastemperatur, Puffertemperaturen, Pelletzähler, Betriebsstunden |
+| `binary_sensor` | Gateway verbunden, Gateway alive, Wärmeanforderung, Legionellenzyklus |
+| `number` | Kessel-Solltemperatur, Heizkurvenwerte, Puffer- und Boiler-Sollwerte |
+| `select` | Heizkreis-Betriebsart, Brennstoffauswahl |
+| `switch` | Automatische Zündung, BWP extra laden, automatische Pelletsaustragung deaktivieren |
+| `button` | Gateway neu verbinden, Gateway neu starten |
+
+### Diagnostik Und Auto-Recovery
+
+| Funktion | Beschreibung |
+|---|---|
+| `gateway_connected` | Aktueller Zustand der Modbus-Verbindung |
+| `gateway_alive` | Zeigt an, ob vor kurzem frische Daten eingetroffen sind |
+| `last_success` | Zeitstempel der letzten erfolgreichen Aktualisierung |
+| `read_error_count` | Kumulierte Modbus-Lesefehler |
+| Auto-Reset | Wenn länger als `3 x scan_interval` keine frischen Daten kommen, wird die TCP-Verbindung vor dem nächsten Poll automatisch zurückgesetzt |
+| Manuelle Aktionen | `Gateway neu verbinden` und `Gateway neu starten` stehen als Diagnose-Entitäten bereit |
+
+### Profile Und Zuordnung
+
+| Funktion | Beschreibung |
+|---|---|
+| YAML-Profile | Gerätemodelle liegen in `custom_components/froeling_connect_local/device_profiles/` |
+| Vererbung | Profile können ein Basisprofil erweitern und Entitäten überschreiben oder ausschließen |
+| Installationsfilter | Heizkreise, Boiler, Puffer und BWP werden abhängig vom Setup ein- oder ausgeblendet |
+| Fröling-nahe Gruppierung | Wichtige Werte landen direkt auf dem passenden HA-Gerät und nicht nur am Gateway |
+
+* * *
 
 ## Installation
 
-### HACS (empfohlen)
+### Option A: HACS (empfohlen)
 
-1. HACS in Home Assistant öffnen.
-2. Custom Repository hinzufügen: `https://github.com/itsh-neumeier/modbus_froeling-connect_local`
-3. Kategorie: `Integration`
-4. **Fröling Connect local** installieren.
-5. Home Assistant neu starten.
+1. HACS -> Integrationen -> `...` -> Benutzerdefinierte Repositories
+2. URL: `https://github.com/itsh-neumeier/modbus_froeling-connect_local` | Kategorie: Integration
+3. Integration installieren -> Home Assistant neu starten
+4. Einstellungen -> Geräte & Dienste -> `+ Integration hinzufügen` -> `Froeling Connect local`
 
-### Manuell
+### Option B: Manuell
 
-1. `custom_components/froeling_connect_local` in dein Home-Assistant-Verzeichnis `custom_components` kopieren.
-2. Home Assistant neu starten.
+1. `custom_components/froeling_connect_local/` in dein Home-Assistant-Konfigurationsverzeichnis kopieren
+2. Home Assistant neu starten
+3. Einstellungen -> Geräte & Dienste -> `+ Integration hinzufügen` -> `Froeling Connect local`
+
+* * *
 
 ## Konfiguration
 
-1. `Einstellungen -> Geräte & Dienste -> Integration hinzufügen`
-2. Nach `Fröling Connect local` suchen
-3. Eingaben:
-   - Host
-   - Port (Standard `502`)
-   - Slave-ID (Standard `2`)
-   - Anzahl Heizkreise (1-12)
+Der Config Flow deckt sowohl die Modbus-Verbindung als auch den Anlagenaufbau ab:
+
+1. Host, Port, Slave-ID, Abfrageintervall und Timeout eingeben
+2. Geräteprofil auswählen
+3. Anlagenaufbau festlegen:
+   - Anzahl der Heizkreise
    - Brauchwasser-Boiler vorhanden
    - Pufferspeicher vorhanden
-   - Dedizierte Warmwassererwärmung (Brauchwasser-WP) vorhanden
+   - Dedizierte Brauchwasser-Wärmepumpe vorhanden
+4. Optional eintragen:
    - Puffervolumen in Litern
-   - Kessel-Nennleistung in kW (für Laufzeitschätzung)
-   - Geräteprofil
-   - Abfrageintervall
-   - Timeout
-4. Bestätigen. Vor dem Anlegen wird ein Verbindungs-Check ausgeführt.
+   - Kessel-Nennleistung in kW
+5. Setup abschließen; vor dem Anlegen der Integration wird der Regler getestet
 
-### Options Flow
+### Laufzeitschätzung Für Den Puffer
 
-Über `Konfigurieren` an der Integrationskarte können Host/Port/Slave/Profil/Anlagen-Setup/Intervall/Timeout später angepasst werden.
-
-### Gerätemodell in Home Assistant
-
-Die Integration legt ein Gateway als Parent-Device an und gruppiert darunter Child-Devices (`via_device`) für:
-
-- Kessel
-- Austragung/Fördereinheit
-- Pellet-Einheit
-- Heizkreise
-- Pufferspeicher
-- optionale Brauchwasser-Wärmepumpe
-
-### Laufzeitschätzung Puffer
-
-Wenn ein Pufferspeicher aktiviert ist, stellt die Integration einen geschätzten Laufzeitsensor bereit:
-
-- `sensor.buffer_estimated_time_to_full`
+Wenn ein Pufferspeicher aktiviert ist, stellt die Integration `sensor.buffer_estimated_time_to_full` bereit.
 
 Die Schätzung nutzt:
 
@@ -87,114 +112,142 @@ Die Schätzung nutzt:
 - aktuellen `buffer_charge_percent`
 - feste Annahme von `40 K` nutzbarer Temperaturspreizung
 
-## Entitäts-Mapping
+* * *
 
-### Gemeinsame Status- und Telemetrie-Sensoren
+## Wichtige SP-Dual-Entitäten
 
-| Entity key | Register | Typ | Hinweis |
-|---|---:|---|---|
-| `system_state` | 34001 | Enum-Sensor | Klartext-Status |
-| `boiler_state` | 34002 | Enum-Sensor | Klartext-Status |
-| `outside_temperature` | 31001 | Sensor | °C |
-| `boiler_temperature` | 30001 | Sensor | °C |
-| `flue_gas_temperature` | 30002 | Sensor | °C |
-| `oxygen_residual` | 30004 | Sensor | % |
-| `boiler_pump_speed` | 30068 | Sensor | % |
-| `hk1_flow_temperature_actual` | 31031 | Sensor | °C |
-| `hk1_flow_temperature_target` | 31032 | Sensor | °C |
-| `hk2_flow_temperature_actual` | 31061 | Sensor | °C |
-| `hk2_flow_temperature_target` | 31062 | Sensor | °C |
-| `buffer_top_temperature` | 32001 | Sensor | °C |
-| `buffer_middle_temperature` | 32002 | Sensor | °C |
-| `buffer_bottom_temperature` | 32003 | Sensor | °C |
-| `buffer_charge_percent` | 32007 | Sensor | % |
-| `pellet_level_percent` | 30022 | Sensor | % |
-| `daily_energy_kwh` | 30085 | Sensor | kWh |
-| `total_energy_kwh` | 30086 | Sensor | kWh |
+### Kessel
 
-### Binary-Sensoren
+| Entität | Register |
+|---|---:|
+| `sensor.boiler_state` | `34002` |
+| `sensor.boiler_temperature` | `30001` |
+| `sensor.flue_gas_temperature` | `30002` |
+| `sensor.oxygen_residual` | `30004` |
+| `sensor.return_temperature` | `30010` |
+| `sensor.primary_air` | `30012` |
+| `sensor.induced_draft_control_output` | `30013` |
+| `sensor.secondary_air` | `30014` |
+| `sensor.operating_hours` | `30021` |
+| `sensor.ember_preservation_hours` | `30025` |
+| `sensor.hours_since_last_maintenance` | `30056` |
+| `sensor.hours_in_heating` | `30064` |
+| `sensor.hours_in_part_load` | `30075` |
+| `sensor.hours_in_logwood_operation` | `30077` |
+| `sensor.remaining_heating_hours_until_ash_empty` | `30087` |
+| `number.boiler_target_temperature` | `40001` |
+| `select.fuel_selection` | `40441` |
 
-| Entity key | Register | Typ |
-|---|---:|---|
-| `heat_demand_active` | 30057 | binary_sensor |
-| `buffer_heat_recovery_active` | 42002 | binary_sensor |
-| `legionella_cycle_active` | 41637 | binary_sensor |
-| `gateway_connected` | Diagnose-binary_sensor |
+### Heizkreis 1
 
-### Schreib-/Config-Entitäten (standardmäßig deaktiviert)
+| Entität | Register |
+|---|---:|
+| `sensor.hk1_flow_temperature_actual` | `31031` |
+| `sensor.hk1_flow_temperature_target` | `31032` |
+| `select.hk1_operating_mode` | `48047` |
+| `number.hk1_curve_temp_plus10` | `41032` |
+| `number.hk1_curve_temp_minus10` | `41033` |
+| `number.hk1_setback_delta` | `41034` |
+| `number.hk1_pump_off_target_temp` | `41040` |
+| `number.hk1_overheat_protection_temp` | `41048` |
 
-| Entity key | Register | Plattform |
-|---|---:|---|
-| `automatic_ignition` | 40136 | switch |
-| `hk1_enabled` | 48029 | switch |
-| `hk2_enabled` | 48030 | switch |
-| `boiler_target_temperature` | 40001 | number |
-| `hk1_modbus_target_temperature` | 48001 | number |
-| `hk2_modbus_target_temperature` | 48002 | number |
-| `dhw_modbus_target_temperature` | 48019 | number |
-| `dhw_extra_charge` | 41636 | switch |
-| `pellet_stock_remaining_t` | 40320 | number |
-| `hk1_operating_mode` | 48047 | select |
-| `hk2_operating_mode` | 48048 | select |
-| `fuel_selection` | 40441 | select |
+### Boiler 1
 
-### SP Dual Compact zusätzliche Entitäten
+| Entität | Register |
+|---|---:|
+| `sensor.dhw_temperature_top` | `31631` |
+| `sensor.dhw_pump_speed` | `31633` |
+| `number.dhw_target_temperature` | `41632` |
+| `number.dhw_reheat_below` | `41633` |
 
-| Entity key | Register | Typ |
-|---|---:|---|
-| `ignition_runtime_hours` | 30047 | Sensor |
-| `stoker_runtime_hours` | 30040 | Sensor |
+### Puffer 1
 
-## Beispiel-Automationen
+| Entität | Register |
+|---|---:|
+| `sensor.buffer_top_temperature` | `32001` |
+| `sensor.buffer_middle_temperature` | `32002` |
+| `sensor.buffer_bottom_temperature` | `32003` |
+| `sensor.buffer_pump_speed` | `32004` |
+| `sensor.buffer_charge_percent` | `32007` |
+| `sensor.buffer_estimated_time_to_full` | abgeleitet |
+| `sensor.buffer_release_temperature` | `42001` |
+| `number.buffer_delta_kessel_to_layer` | `42003` |
 
-### Alarm bei Kessel-Fehlerzustand
+### Austragung
+
+| Entität | Register |
+|---|---:|
+| `sensor.pellet_level_percent` | `30022` |
+| `sensor.pellet_consumption_reset_kg` | `30082` |
+| `sensor.pellet_consumption_reset_t` | `30083` |
+| `sensor.pellet_consumption_total_t` | `30084` |
+| `number.pellet_stock_remaining_t` | `40320` |
+| `number.pellet_stock_minimum_t` | `40336` |
+| `switch.automatic_pellet_extraction_disabled` | `40265` |
+
+* * *
+
+## Automationsbeispiele
+
+> Nutzung: YAML in den Home-Assistant-Automationseditor einfügen und die Entity-IDs auf deine Installation anpassen.
+
+### Meldung, wenn der Regler keine frischen Daten mehr liefert
 
 ```yaml
-automation:
-  - alias: Fröling Kessel Fehler Alarm
-    trigger:
-      - platform: state
-        entity_id: sensor.froeling_boiler_state
-        to: "fault"
-    action:
-      - service: notify.mobile_app_phone
-        data:
-          message: "Fröling meldet einen Kessel-Fehlerzustand."
+alias: "Fröling - Regler hängt"
+description: "Benachrichtigt, wenn keine frischen Daten mehr ankommen"
+mode: single
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.sp_dual_gateway_alive
+    to: "off"
+actions:
+  - action: notify.mobile_app_my_phone
+    data:
+      title: "Fröling offline"
+      message: >
+        Keine frischen Fröling-Daten mehr empfangen.
+        Letzte erfolgreiche Aktualisierung:
+        {{ states('sensor.sp_dual_last_success') }}
 ```
 
-### Betriebsart tagsüber auf Automatik setzen
+### Gateway automatisch neu starten, wenn es hängt
 
 ```yaml
-automation:
-  - alias: Fröling HK1 Tagesmodus
-    trigger:
-      - platform: time
-        at: "06:00:00"
-    action:
-      - service: select.select_option
-        target:
-          entity_id: select.froeling_hk1_operating_mode
-        data:
-          option: automatic
+alias: "Fröling - Gateway automatisch neu starten"
+description: "Drückt den Restart-Button, wenn das Gateway nicht mehr alive ist"
+mode: single
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.sp_dual_gateway_alive
+    to: "off"
+    for: "00:01:00"
+actions:
+  - action: button.press
+    target:
+      entity_id: button.sp_dual_restart_gateway
 ```
 
-## Diagnostik und Robustheit
+### Meldung, wenn die Asche bald geleert werden sollte
 
-- Geblockte Register-Reads pro Registertyp für weniger Netzwerk-Overhead
-- Gemeinsamer Coordinator-Lock gegen parallele Modbus-Zugriffe
-- Connection-Reuse mit Reconnect-Fallback
-- Diagnose-Entitäten:
-  - Gateway-Verbindung
-  - Roundtrip-Latenz
-  - Lese-Fehlerzähler
-  - letzter Fehlertext
-  - Zeitstempel letzter erfolgreicher Aktualisierung
+```yaml
+alias: "Fröling - Aschewarnung"
+description: "Benachrichtigt vor der Warnung zum Ascheleeren"
+mode: single
+triggers:
+  - trigger: numeric_state
+    entity_id: sensor.sp_dual_remaining_heating_hours_until_ash_empty
+    below: 24
+actions:
+  - action: notify.mobile_app_my_phone
+    data:
+      title: "Fröling Aschewarnung"
+      message: >
+        Verbleibende Heizstunden bis Asche entleeren:
+        {{ states('sensor.sp_dual_remaining_heating_hours_until_ash_empty') }} h
+```
 
-## Sicherheit
-
-- Laufzeit-Dependencies mit Versionsbereich und CI-Audit (`pip-audit`)
-- Statische Analyse in CI: `ruff`, `bandit`
-- Security-Meldungsprozess: siehe [SECURITY.md](SECURITY.md)
+* * *
 
 ## Entwicklung
 
@@ -206,15 +259,7 @@ pytest -q
 pip-audit -r requirements.txt
 ```
 
-## Release-Prozess
-
-1. Code und Tests aktualisieren
-2. Checks ausführen
-3. Version in `manifest.json` erhöhen
-4. `CHANGELOG.md` aktualisieren
-5. Commit + Push
-6. Tag `vX.Y.Z` erstellen und pushen
-7. GitHub Release veröffentlichen
+* * *
 
 ## Lizenz
 

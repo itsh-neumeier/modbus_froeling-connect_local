@@ -111,7 +111,7 @@
         "name": "Abgastemperatur"
       },
       "oxygen_residual": {
-        "name": "Restsauerstoff"
+        "name": "Restsauerstoffgehalt"
       },
       "boiler_pump_speed": {
         "name": "Kesselpumpendrehzahl"
@@ -177,19 +177,19 @@
         "name": "Austragung Strom"
       },
       "pellet_consumption_reset_kg": {
-        "name": "Pelletverbrauch seit Reset (kg)"
+        "name": "Brennstoffzähler [kg]"
       },
       "pellet_consumption_reset_t": {
-        "name": "Pelletverbrauch seit Reset (t)"
+        "name": "Pelletverbrauch-Zähler"
       },
       "pellet_consumption_total_t": {
-        "name": "Pelletverbrauch gesamt (t)"
+        "name": "Brennstoffverbrauch [t] gesamt"
       },
       "dhw_temperature_top": {
-        "name": "Brauchwassertemperatur oben"
+        "name": "Boilertemperatur oben"
       },
       "dhw_pump_speed": {
-        "name": "Brauchwasserpumpendrehzahl"
+        "name": "Boilerpumpe Ansteuerung"
       },
       "buffer_pump_speed": {
         "name": "Pufferpumpendrehzahl"
@@ -253,6 +253,42 @@
       },
       "buffer_volume_liters_register": {
         "name": "Puffervolumen Register (Liter)"
+      },
+      "operating_hours": {
+        "name": "Betriebsstunden"
+      },
+      "burner_starts": {
+        "name": "Anzahl der Brennerstarts"
+      },
+      "ember_preservation_hours": {
+        "name": "Betriebsstunden in der Feuererhaltung"
+      },
+      "return_temperature": {
+        "name": "Rücklauffühler"
+      },
+      "primary_air": {
+        "name": "Primärluft"
+      },
+      "induced_draft_control_output": {
+        "name": "Saugzug - Ansteuerung"
+      },
+      "secondary_air": {
+        "name": "Sekundärluft"
+      },
+      "hours_since_last_maintenance": {
+        "name": "Stunden seit letzter Wartung"
+      },
+      "hours_in_heating": {
+        "name": "Stunden im Heizen"
+      },
+      "hours_in_part_load": {
+        "name": "Stunden in Teillastbetrieb"
+      },
+      "hours_in_logwood_operation": {
+        "name": "Stunden im Scheitholzbetrieb"
+      },
+      "remaining_heating_hours_until_ash_empty": {
+        "name": "Verbleibende Heizstunden bis Asche entleeren"
       }
     },
     "binary_sensor": {
@@ -267,6 +303,9 @@
       },
       "gateway_connected": {
         "name": "Gateway verbunden"
+      },
+      "gateway_alive": {
+        "name": "Gateway aktiv"
       },
       "dhw_heat_pump_installed": {
         "name": "Brauchwasser-Wärmepumpe vorhanden",
@@ -308,7 +347,7 @@
     },
     "number": {
       "boiler_target_temperature": {
-        "name": "Kessel Solltemperatur"
+        "name": "Kessel-Solltemperatur"
       },
       "hk1_modbus_target_temperature": {
         "name": "HK1 Modbus Solltemperatur"
@@ -320,37 +359,37 @@
         "name": "Brauchwasser Modbus Solltemperatur"
       },
       "pellet_stock_remaining_t": {
-        "name": "Pellet Restbestand"
+        "name": "Brennstofflager - Restbestand"
       },
       "hk1_curve_temp_plus10": {
-        "name": "HK1 Heizkurve +10 °C"
+        "name": "Gewünschte Vorlauftemperatur bei +10°C Außentemperatur"
       },
       "hk1_curve_temp_minus10": {
-        "name": "HK1 Heizkurve -10 °C"
+        "name": "Gewünschte Vorlauftemperatur bei -10°C Außentemperatur"
       },
       "hk1_setback_delta": {
-        "name": "HK1 Absenk-Delta"
+        "name": "Absenkung der Vorlauftemperatur im Absenkbetrieb"
       },
       "hk1_pump_on_temp_heating": {
-        "name": "HK1 Pumpe Ein bei Heizbetrieb"
+        "name": "Außentemperatur, unter der die Heizkreispumpe im Heizbetrieb einschaltet"
       },
       "hk1_pump_on_temp_setback": {
-        "name": "HK1 Pumpe Ein bei Absenkbetrieb"
+        "name": "Außentemperatur, unter der die Heizkreispumpe im Absenkbetrieb einschaltet"
       },
       "hk1_frost_protection_temperature": {
-        "name": "HK1 Frostschutztemperatur"
+        "name": "Frostschutztemperatur"
       },
       "hk1_pump_off_target_temp": {
-        "name": "HK1 Pumpenaus Solltemperatur"
+        "name": "Heizkreispumpe ausschalten wenn Vorlauf Soll kleiner ist als"
       },
       "hk1_overheat_protection_temp": {
-        "name": "HK1 Überhitzungsschutztemperatur"
+        "name": "Temp. am Puffer oben ab der der Überhitzungsschutz aktiv wird"
       },
       "dhw_target_temperature": {
-        "name": "Brauchwasser Solltemperatur"
+        "name": "Gewünschte Boilertemperatur"
       },
       "dhw_reheat_below": {
-        "name": "Brauchwasser Nachheizen unter"
+        "name": "Nachladen, wenn Boilertemperatur unter"
       },
       "buffer_delta_kessel_to_layer": {
         "name": "Puffer Delta Kessel zu Schicht"
@@ -368,7 +407,7 @@
         "name": "Pelletförderung 100 Prozent (g)"
       },
       "pellet_stock_minimum_t": {
-        "name": "Pellet Mindestbestand (t)"
+        "name": "Brennstofflager - Mindestbestand"
       },
       "dhw_heat_pump_off_return_temperature": {
         "name": "Brauchwasser-WP Rücklauf Aus-Temperatur"
@@ -386,6 +425,9 @@
       },
       "dhw_extra_charge": {
         "name": "BWP extra laden"
+      },
+      "automatic_pellet_extraction_disabled": {
+        "name": "Automatische Pelletsaustragung deaktivieren"
       }
     },
     "select": {
@@ -445,6 +487,9 @@
     "button": {
       "reconnect_gateway": {
         "name": "Gateway neu verbinden"
+      },
+      "restart_gateway": {
+        "name": "Gateway neu starten"
       }
     }
   }

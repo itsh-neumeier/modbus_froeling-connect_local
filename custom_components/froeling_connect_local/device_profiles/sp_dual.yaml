@@ -25,5 +25,198 @@ override_entities:
   - key: pellet_level_percent
     scale: 207
     precision: 1
+    device_key: auger
+    enabled_by_default: true
+  - key: ignition_runtime_hours
+    device_key: kessel
   - key: fuel_selection
+    enabled_by_default: true
+  - key: pellet_consumption_reset_kg
+    device_key: auger
+    enabled_by_default: true
+  - key: pellet_consumption_reset_t
+    device_key: auger
+    enabled_by_default: true
+  - key: pellet_consumption_total_t
+    device_key: auger
+    enabled_by_default: true
+  - key: pellet_stock_remaining_t
+    device_key: auger
+    enabled_by_default: true
+  - key: pellet_stock_minimum_t
+    device_key: auger
+    enabled_by_default: true
+  - key: boiler_target_temperature
+    enabled_by_default: true
+  - key: hk1_curve_temp_plus10
+    enabled_by_default: true
+  - key: hk1_curve_temp_minus10
+    enabled_by_default: true
+  - key: hk1_setback_delta
+    enabled_by_default: true
+  - key: hk1_pump_on_temp_heating
+    enabled_by_default: true
+  - key: hk1_pump_on_temp_setback
+    enabled_by_default: true
+  - key: hk1_frost_protection_temperature
+    enabled_by_default: true
+  - key: hk1_pump_off_target_temp
+    enabled_by_default: true
+  - key: hk1_overheat_protection_temp
+    enabled_by_default: true
+  - key: dhw_target_temperature
+    enabled_by_default: true
+  - key: dhw_reheat_below
+    enabled_by_default: true
+  - key: buffer_release_temperature
+    enabled_by_default: true
+  - key: buffer_delta_kessel_to_layer
+    enabled_by_default: true
+entities:
+  - key: operating_hours
+    platform: sensor
+    register: 30021
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: h
+    state_class: total_increasing
+    signed: false
+    device_key: kessel
+
+  - key: burner_starts
+    platform: sensor
+    register: 30023
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    state_class: total_increasing
+    signed: false
+    device_key: kessel
+
+  - key: ember_preservation_hours
+    platform: sensor
+    register: 30025
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: h
+    state_class: total_increasing
+    signed: false
+    device_key: kessel
+
+  - key: return_temperature
+    platform: sensor
+    register: 30010
+    register_type: input
+    value_type: float
+    scale: 2
+    precision: 1
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    device_key: kessel
+
+  - key: primary_air
+    platform: sensor
+    register: 30012
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: "%"
+    state_class: measurement
+    device_key: kessel
+
+  - key: induced_draft_control_output
+    platform: sensor
+    register: 30013
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: "%"
+    state_class: measurement
+    device_key: kessel
+
+  - key: secondary_air
+    platform: sensor
+    register: 30014
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: "%"
+    state_class: measurement
+    device_key: kessel
+
+  - key: hours_since_last_maintenance
+    platform: sensor
+    register: 30056
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: h
+    signed: false
+    device_key: kessel
+
+  - key: hours_in_heating
+    platform: sensor
+    register: 30064
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: h
+    state_class: total_increasing
+    signed: false
+    device_key: kessel
+
+  - key: hours_in_part_load
+    platform: sensor
+    register: 30075
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: h
+    state_class: total_increasing
+    signed: false
+    device_key: kessel
+
+  - key: hours_in_logwood_operation
+    platform: sensor
+    register: 30077
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: h
+    state_class: total_increasing
+    signed: false
+    device_key: kessel
+
+  - key: remaining_heating_hours_until_ash_empty
+    platform: sensor
+    register: 30087
+    register_type: input
+    value_type: int
+    scale: 1
+    precision: 0
+    unit: h
+    signed: false
+    device_key: kessel
+
+  - key: automatic_pellet_extraction_disabled
+    platform: switch
+    register: 40265
+    register_type: holding
+    value_type: bool
+    writeable: true
+    device_key: auger
+    entity_category: config
     enabled_by_default: true

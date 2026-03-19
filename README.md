@@ -5,9 +5,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-0B0F19.svg?style=for-the-badge)](LICENSE)
 [![Version](https://img.shields.io/github/v/release/itsh-neumeier/modbus_froeling-connect_local?style=for-the-badge)](https://github.com/itsh-neumeier/modbus_froeling-connect_local/releases)
 
-> Deutsche Dokumentation: [README.de.md](README.de.md)
+> German documentation: [README.de.md](README.de.md)
 
-Full Home Assistant integration for local Fröling controllers via Modbus TCP, with multi-device mapping for Kessel, Heizkreise, Boiler, Puffer, Austragung, and optional DHW heat pump modules.
+Full Home Assistant integration for local Fröling controllers via Modbus TCP, with multi-device mapping for boiler, heating circuits, DHW tank, buffer tank, pellet extraction, and optional DHW heat pump modules.
 
 * * *
 
@@ -28,18 +28,18 @@ Full Home Assistant integration for local Fröling controllers via Modbus TCP, w
 | Home Assistant device | Typical Fröling module |
 |---|---|
 | Gateway | Main controller / Touch controller |
-| Kessel | Boiler core values and firing state |
-| Heizkreis 1 / 2 | Flow temperatures, operating mode, curve values |
-| Boiler 1 | DHW boiler / domestic hot water |
-| Puffer 1 | Buffer temperatures, charge state, pump control |
-| Austragung | Pellet storage / extraction / counters |
-| BWP | Dedicated DHW heat pump, if configured |
+| Boiler | Boiler core values and firing state |
+| Heating Circuit 1 / 2 | Flow temperatures, operating mode, curve values |
+| DHW Tank 1 | DHW boiler / domestic hot water |
+| Buffer Tank 1 | Buffer temperatures, charge state, pump control |
+| Pellet Extraction | Pellet storage / extraction / counters |
+| DHW Heat Pump | Dedicated DHW heat pump, if configured |
 
 ### Entities
 
 | Platform | Examples |
 |---|---|
-| `sensor` | Boiler state, Kesseltemperatur, Abgastemperatur, Puffer temperatures, pellet counters, operating hours |
+| `sensor` | Boiler state, boiler temperature, flue gas temperature, buffer temperatures, pellet counters, operating hours |
 | `binary_sensor` | Gateway connected, gateway alive, heat demand, legionella cycle |
 | `number` | Boiler target temperature, heating curve values, buffer and DHW setpoints |
 | `select` | Heating circuit mode, fuel selection |
@@ -63,7 +63,7 @@ Full Home Assistant integration for local Fröling controllers via Modbus TCP, w
 |---|---|
 | YAML profiles | Device definitions live in `custom_components/froeling_connect_local/device_profiles/` |
 | Inheritance | Profiles can extend a base profile and override or exclude entities |
-| Installation filters | Heizkreise, DHW, buffer, and DHW heat pump entities are filtered based on setup options |
+| Installation filters | Heating circuit, DHW, buffer, and DHW heat pump entities are filtered based on setup options |
 | Fröling-like grouping | Important values are grouped on the matching HA device instead of ending up only on the gateway |
 
 * * *
@@ -116,7 +116,7 @@ The estimate uses:
 
 ## Important SP Dual Entities
 
-### Kessel
+### Boiler
 
 | Entity | Register |
 |---|---:|
@@ -138,7 +138,7 @@ The estimate uses:
 | `number.boiler_target_temperature` | `40001` |
 | `select.fuel_selection` | `40441` |
 
-### Heizkreis 1
+### Heating Circuit 1
 
 | Entity | Register |
 |---|---:|
@@ -151,7 +151,7 @@ The estimate uses:
 | `number.hk1_pump_off_target_temp` | `41040` |
 | `number.hk1_overheat_protection_temp` | `41048` |
 
-### Boiler 1
+### DHW Tank 1
 
 | Entity | Register |
 |---|---:|
@@ -160,7 +160,7 @@ The estimate uses:
 | `number.dhw_target_temperature` | `41632` |
 | `number.dhw_reheat_below` | `41633` |
 
-### Puffer 1
+### Buffer Tank 1
 
 | Entity | Register |
 |---|---:|
@@ -173,7 +173,7 @@ The estimate uses:
 | `sensor.buffer_release_temperature` | `42001` |
 | `number.buffer_delta_kessel_to_layer` | `42003` |
 
-### Austragung
+### Pellet Extraction
 
 | Entity | Register |
 |---|---:|
